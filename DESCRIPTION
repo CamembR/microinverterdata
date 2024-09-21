@@ -1,0 +1,26 @@
+Package: microinverterdata
+Type: Package
+Title: Collect your microinverter data
+Version: 0.1.0
+Authors@R: c(
+    person(given = "Christophe",
+           family = "Regouby",
+           role = c("aut", "cre", "cph"),
+           email = "christophe.regouby@free.fr"
+           )
+    )
+Description: Collect local microinverter data through API requests on
+    your local area network. Currently supports APSystem micro-inverter.
+License: MIT + file LICENSE
+BugReports: https://github.com/camembR/microinverterdata/issues
+URL: https://github.com/camembR/microinverterdata 
+Encoding: UTF-8
+LazyData: true
+Imports:
+    httr2,
+    future,
+    purrr,
+    tidyr,
+    dplyr,
+    tibble
+RoxygenNote: 7.3.2
