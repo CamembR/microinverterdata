@@ -32,7 +32,7 @@ This is a basic example to get inverter data for a single device:
 ``` r
 library(microinverterdata)
 
-## single inverter data
+## single micro-inverter device data
 get_output_data(device_ip = "192.168.0.75")
 #> # A tibble: 2 × 5
 #>   device_id    inverter   output_power today_energy lifetime_energy
@@ -40,6 +40,9 @@ get_output_data(device_ip = "192.168.0.75")
 #> 1 E07000017176 inverter_1          127          0.336            251.
 #> 2 E07000017176 inverter_2          128          0.342            265.
 ```
+
+The single device here includes 2 separated inverters. We get one row
+of data per inverter, i.e. per solar panel.
 
 You can also use a vector of IP adresses for `device_ip`. Thus the
 command would run on all the inverters
@@ -56,11 +59,14 @@ get_output_data(device_ip = c("192.168.0.75", "192.168.0.186"))
 #> 4 E07000021746 inverter_2          123          0.329            59.0
 ```
 
+The packages also gives access to inverter information through `get_device_info()`
+and inverter internal alarms through `get_alarm()`.
+
 ## Inverter support and configuration
 
 The package here requires minimal version and configuration for the
 supported inverters :
 
-| Inverter Manufacturer | Inverter Model | Microcode version | Configuration        |
+| Inverter Manufacturer | Inverter Model | Firmware version  | Configuration        |
 |-----------------------|----------------|-------------------|----------------------|
-| APSystems             | EZ1            | 1.7.0             | Permanent local mode |
+| APSystems             | EZ1            | ≥ 1.7.0           | Permanent local mode |
