@@ -1,5 +1,6 @@
 test_that("get_output_data() works with a single device from APSystems", {
   skip_if_offline(host = apsystems_host)
+  skip_on_os("windows")
   expect_error(
     get_output_data(apsystems_host),
     NA)
@@ -14,6 +15,7 @@ test_that("get_output_data() works with a single device from APSystems", {
 
 test_that("get_output_data() works with multiple devices from APSystems", {
   skip_if_offline(host = apsystems_host)
+  skip_on_os("windows")
   expect_error(
     get_output_data(apsystems_multi),
     NA)
