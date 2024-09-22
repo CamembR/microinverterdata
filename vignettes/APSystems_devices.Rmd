@@ -1,0 +1,39 @@
+---
+title: "APSystems devices"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{APSystems_devices}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(microinverterdata)
+```
+
+# APsystems device coverage
+
+The following APSystems devices are covvered :
+
+| Inverter Model | Firmware version | Configuration         |
+|----------------|------------------|-----------------------|
+| EZ1            | ≥ 1.7.0          | Continuous local mode |
+
+# Continuous local mode for your micro-inverter
+
+Permanent local mode is a setup configuration of your micro-inverter that allow REST API calls from the local network to the inverter.
+
+Here is the high level network setup :![Network Setup](images/network_setup.png)
+
+Here is how to configure each and every inverter to reach that configuration
+
+|  Direct-connect device page                | Direct-connect device settings          | Setting local mode for Continuous local mode |
+|--------------------------------------------|-----------------------------------------|----------------------------------------------|
+| ![](images/Direct_connect_device_page.png) | ![](images/Direct_connect_settings.png) | ![](images/Settings_local_mode.png)          |

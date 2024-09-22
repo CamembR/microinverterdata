@@ -5,10 +5,10 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/microinverterdata)](https://CRAN.R-project.org/package=microinverterdata)
 [![](https://cranlogs.r-pkg.org/badges/microinverterdata)](https://cran.r-project.org/package=microinverterdata)
-[![R-CMD-check](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of microinverterdata is to provide access to your local
@@ -66,6 +66,6 @@ and inverter internal alarms through `get_alarm()`.
 The package here requires minimal version and configuration for the
 supported inverters :
 
-| Inverter Manufacturer | Inverter Model | Firmware version  | Configuration        |
-|-----------------------|----------------|-------------------|----------------------|
-| APSystems             | EZ1            | ≥ 1.7.0           | Permanent local mode |
+| Inverter Manufacturer | Inverter Model | Firmware version  | Configuration         |
+|-----------------------|----------------|-------------------|-----------------------|
+| APSystems             | EZ1            | ≥ 1.7.0           | Continuous local mode |
