@@ -1,0 +1,13 @@
+url: https://camembr.github.io/microinverterdata/
+template:
+  bootstrap: 5
+
+development:
+  mode: auto
+
+navbar:
+ structure:
+  left:  [home, reference, news]
+  right: [github]
+ components:
+  articles: ~
