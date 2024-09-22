@@ -17,9 +17,9 @@
 get_output_data <- function(device_ip, model = "APSystems") {
   if (model == "APSystems") {
     out_tbl <- query_ap_devices(device_ip, "getOutputData") |>
-      rename(inverter_1_output_power = "p1", inverter_1_current_energy = "e1",
+      rename(inverter_1_output_power = "p1", inverter_1_today_energy = "e1",
                     inverter_1_lifetime_energy = "te1", inverter_2_output_power = "p2",
-                    inverter_2_current_energy = "e2", inverter_2_lifetime_energy = "te2"
+                    inverter_2_today_energy = "e2", inverter_2_lifetime_energy = "te2"
       ) |>
       pivot_longer(2:7) |>
       separate(.data$name, into = c("inverter", "metric"), sep = "(?<=\\d)_") |>

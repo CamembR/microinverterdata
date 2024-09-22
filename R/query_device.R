@@ -11,6 +11,7 @@
 #' @examplesIf FALSE
 #' query_ap_device(device_ip = "192.168.0.234", query = "getDeviceInfo")
 query_ap_device <- function(device_ip, query) {
+  stopifnot("device_IP shall be an atomic character string" = length(device_ip) == 1)
   url <- glue::glue("http://{device_ip}:8050/{query}")
   req <- request(url)
   resp <- req |> req_perform()
@@ -37,7 +38,7 @@ query_ap_device <- function(device_ip, query) {
 #'                  query = "getDeviceInfo"
 #'                  )
 query_ap_devices <- function(device_ip, query) {
-  url <- glue::glue("http://{device_ip}:8050/{query}")
+  url <- glue::glue("http://{unique(device_ip)}:8050/{query}")
   resp <- map(url, ~.x |> request() |> req_perform())
   if (!any(map_lgl(resp, resp_is_error))) {
     info_lst <- map(resp, ~.x |> resp_body_json())

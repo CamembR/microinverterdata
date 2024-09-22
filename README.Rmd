@@ -1,0 +1,62 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# microinverterdata
+
+<!-- badges: start -->
+[![R build status](https://github.com/CamembR/microinverterdata/workflows/R-CMD-check/badge.svg)](https://github.com/CamembR/microinverterdata/actions)
+[![CRAN status](https://www.r-pkg.org/badges/version/microinverterdata)](https://CRAN.R-project.org/package=microinverterdata)
+[![](https://cranlogs.r-pkg.org/badges/microinverterdata)](https://cran.r-project.org/package=microinverterdata)
+<!-- badges: end -->
+
+The goal of microinverterdata is to provide access to your local micro-inverter data.
+
+## Installation
+
+You can install the development version of {microinverterdata} from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("CamembR/microinverterdata")
+```
+
+## Example
+
+This is a basic example to get inverter data for a single device:
+
+```{r example}
+library(microinverterdata)
+
+## single inverter data
+get_output_data(device_ip = "192.168.0.75")
+
+```
+
+You can also use a vector of IP adresses for `device_ip`. Thus the command would run on all the inverters
+
+```{r multiple_inverters}
+## multiple inverters data
+get_output_data(device_ip = c("192.168.0.75", "192.168.0.186"))
+
+```
+
+
+## Inverter support and configuration
+
+The package here requires minimal version and configuration for the supported inverters : 
+
+| Inverter Manufacturer | Inverter Model | Firmware version | Configuration |
+|---|---|---|---|
+| APSystems | EZ1 | ≥ 1.7.0 | Permanent local mode |
