@@ -22,8 +22,10 @@ Imports:
     glue,
     httr2,
     purrr,
+    readr,
+    rlang,
     tidyr,
-    tibble
+    units
 RoxygenNote: 7.3.2
 Suggests: 
     testthat (>= 3.0.0)

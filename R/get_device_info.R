@@ -6,7 +6,7 @@
 #' @return a data-frame with one row of device information per `device_id` answering the query.
 #' @export
 #'
-#' @examples
+#' @examplesIf FALSE
 #' get_device_info(c("192.168.0.12", "192.168.0.230"))
 get_device_info <- function(device_ip, model = "APSystems") {
   if (model == "APSystems") {

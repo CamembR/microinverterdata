@@ -8,7 +8,7 @@
 #' @export
 #' @importFrom httr2 request req_perform resp_is_error resp_body_json
 #'
-#' @examples
+#' @examplesIf FALSE
 #' query_ap_device(device_ip = "192.168.0.234", query = "getDeviceInfo")
 query_ap_device <- function(device_ip, query) {
   url <- glue::glue("http://{device_ip}:8050/{query}")
@@ -32,8 +32,8 @@ query_ap_device <- function(device_ip, query) {
 #' @importFrom httr2 request req_perform resp_is_error resp_body_json
 #' @importFrom purrr map map_lgl map_dfr
 #'
-#' @examples
-#' query_ap_devices(device_ip = c("192.168.0.234", "192.168.0.234"),
+#' @examplesIf FALSE
+#' query_ap_devices(device_ip = c("192.168.0.234", "192.168.0.235"),
 #'                  query = "getDeviceInfo"
 #'                  )
 query_ap_devices <- function(device_ip, query) {

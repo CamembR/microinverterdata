@@ -19,7 +19,9 @@ a data-frame with a row for each `device_id`, and the `$data` turned into
 AP System multi-device query
 }
 \examples{
-query_ap_devices(device_ip = c("192.168.0.234", "192.168.0.234"),
+\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+query_ap_devices(device_ip = c("192.168.0.234", "192.168.0.235"),
                  query = "getDeviceInfo"
                  )
+\dontshow{\}) # examplesIf}
 }

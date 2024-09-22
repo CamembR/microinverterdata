@@ -1,4 +1,4 @@
-test_that("get_info() works with a single device from APSystems", {
+test_that("get_device_info() works with a single device from APSystems", {
   skip_if_offline(host = apsystems_host)
   expect_error(
     get_device_info(apsystems_host),
@@ -12,9 +12,9 @@ test_that("get_info() works with a single device from APSystems", {
   expect_equal(nrow(apsystem_info), 1L)
 })
 
-test_that("get_info() raise an explicit message for unsupported model", {
+test_that("get_device_info() raise an explicit message for unsupported model", {
   expect_error(
-    get_info(apsystems_host, model = "Enphase"),
+    get_device_info(apsystems_host, model = "Enphase"),
     "is not supported yet")
 })
 
