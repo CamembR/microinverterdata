@@ -7,7 +7,7 @@
 query_ap_devices(device_ip, query)
 }
 \arguments{
-\item{device_ip}{list or vector of APSystem devices IP addresses}
+\item{device_ip}{list or vector of each APSystem device IP address}
 
 \item{query}{the API query string}
 }

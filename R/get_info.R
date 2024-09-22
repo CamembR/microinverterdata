@@ -1,9 +1,9 @@
 #' Get inverter device information
 #'
-#' @inheritParams query_ap_devices
-#' @param model the inverter device model. Currrently only "APSystems" is supported.
+#' @param device_ip list or vector of devices IP address
+#' @param model the inverter device model. Currently only "APSystems" is supported.
 #'
-#' @return a dataframe with one row of device information per `device_id` answering the query.
+#' @return a data-frame with one row of device information per `device_id` answering the query.
 #' @export
 #'
 #' @examples

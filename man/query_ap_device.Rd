@@ -7,7 +7,7 @@
 query_ap_device(device_ip, query)
 }
 \arguments{
-\item{device_ip}{IP address of the APSystem device IP addresses}
+\item{device_ip}{IP address of the APSystem device}
 
 \item{query}{the API query string}
 }

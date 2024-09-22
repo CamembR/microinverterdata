@@ -7,12 +7,12 @@
 get_device_info(device_ip, model = "APSystems")
 }
 \arguments{
-\item{device_ip}{list or vector of APSystem devices IP addresses}
+\item{device_ip}{list or vector of devices IP address}
 
-\item{model}{the inverter device model. Currrently only "APSystems" is supported.}
+\item{model}{the inverter device model. Currently only "APSystems" is supported.}
 }
 \value{
-a dataframe with one row of device information per `device_id` answering the query.
+a data-frame with one row of device information per `device_id` answering the query.
 }
 \description{
 Get inverter device information

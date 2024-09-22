@@ -1,6 +1,6 @@
 #' AP System single device query
 #'
-#' @param device_ip IP address of the APSystem device IP addresses
+#' @param device_ip IP address of the APSystem device
 #' @param query the API query string
 #'
 #' @return a data-frame with a `device_id` column and the `$data` turned into
@@ -23,7 +23,7 @@ query_ap_device <- function(device_ip, query) {
 
 #' AP System multi-device query
 #'
-#' @param device_ip list or vector of APSystem devices IP addresses
+#' @param device_ip list or vector of each APSystem device IP address
 #' @param query the API query string
 #'
 #' @return a data-frame with a row for each `device_id`, and the `$data` turned into
