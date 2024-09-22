@@ -3,7 +3,7 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   APSystems_devices: APSystems_devices.html
-last_built: 2024-09-22T15:09Z
+last_built: 2024-09-22T15:21Z
 urls:
   reference: https://camembr.github.io/microinverterdata/reference
   article: https://camembr.github.io/microinverterdata/articles
