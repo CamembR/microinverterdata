@@ -15,9 +15,9 @@ test_that("get_device_info() works with a single device from APSystems", {
 test_that("get_device_info() works with multiple devices from APSystems", {
   skip_if_offline(host = apsystems_host)
   expect_error(
-    get_device_info(c(apsystems_host, apsystems_host)),
+    get_device_info(apsystems_multi),
     NA)
-  apsystem_info <-  get_device_info(c(apsystems_host, apsystems_host))
+  apsystem_info <-  get_device_info(apsystems_multi)
   expect_true(is.data.frame(apsystem_info))
   expect_equal(
     names(apsystem_info),

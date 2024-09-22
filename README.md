@@ -33,8 +33,7 @@ This is a basic example to get inverter data for a single device:
 library(microinverterdata)
 
 ## single inverter data
-inverter_ip = c("192.168.0.75")
-get_output_data(device_ip = inverter_ip)
+get_output_data(device_ip = "192.168.0.75")
 #> # A tibble: 2 × 5
 #>   device_id    inverter   output_power today_energy lifetime_energy
 #>   <chr>        <chr>               [W]         [kW/h]          [kW/h]
@@ -47,8 +46,7 @@ command would run on all the inverters
 
 ``` r
 ## multiple inverters data
-inverter_ip = c("192.168.0.75", "192.168.0.186")
-get_output_data(device_ip = inverter_ip)
+get_output_data(device_ip = c("192.168.0.75", "192.168.0.186"))
 #> # A tibble: 4 × 5
 #>   device_id    inverter   output_power today_energy lifetime_energy
 #>   <chr>        <chr>               [W]         [kW/h]          [kW/h]

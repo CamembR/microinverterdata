@@ -15,9 +15,9 @@ test_that("get_alarm() works with a single device from APSystems", {
 test_that("get_alarm() works with multiple devices from APSystems", {
   skip_if_offline(host = apsystems_host)
   expect_error(
-    get_alarm(c(apsystems_host, apsystems_host)),
+    get_alarm(apsystems_multi),
     NA)
-  apsystem_alarm <-  get_alarm(c(apsystems_host, apsystems_host))
+  apsystem_alarm <-  get_alarm(apsystems_multi)
   expect_true(is.data.frame(apsystem_alarm))
   expect_equal(
     names(apsystem_alarm),

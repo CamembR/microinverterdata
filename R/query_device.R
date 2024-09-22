@@ -6,7 +6,7 @@
 #' @return a data-frame with a `device_id` column and the `$data` turned into
 #'    as many columns as expected
 #' @export
-#' @importFrom httr2 request req_perform resp_is_error resp_body_json
+#' @importFrom httr2 request req_perform resp_is_error resp_body_json resp_status resp_status_desc
 #'
 #' @examplesIf FALSE
 #' query_ap_device(device_ip = "192.168.0.234", query = "getDeviceInfo")
@@ -15,11 +15,13 @@ query_ap_device <- function(device_ip, query) {
   url <- glue::glue("http://{device_ip}:8050/{query}")
   req <- request(url)
   resp <- req |> req_perform()
-  if (!resp_is_error(resp)) {
+  if (resp_is_error(resp)) {
+    cli::cli_abort(c("Connection to device {.var device_ip} raise an error : ",
+                     "{resp_status(resp)} {resp_status_desc(resp)}."))
+  } else {
     info_lst <- resp |> resp_body_json()
     cbind(device_id = info_lst$deviceId, as.data.frame(info_lst$data))
   }
-  # TODO proper error management
 }
 
 #' AP System multi-device query
@@ -30,7 +32,7 @@ query_ap_device <- function(device_ip, query) {
 #' @return a data-frame with a row for each `device_id`, and the `$data` turned into
 #'    as many columns as expected
 #' @export
-#' @importFrom httr2 request req_perform resp_is_error resp_body_json
+#' @importFrom httr2 request req_perform resp_is_error resp_body_json resp_status resp_status_desc
 #' @importFrom purrr map map_lgl map_dfr
 #'
 #' @examplesIf FALSE
@@ -40,11 +42,15 @@ query_ap_device <- function(device_ip, query) {
 query_ap_devices <- function(device_ip, query) {
   url <- glue::glue("http://{unique(device_ip)}:8050/{query}")
   resp <- map(url, ~.x |> request() |> req_perform())
-  if (!any(map_lgl(resp, resp_is_error))) {
+  response_is_error <- map_lgl(resp, resp_is_error)
+  if (any(response_is_error)) {
+    cli::cli_abort(c("Connection to device {.var device_ip[response_is_error]} raise an error : ",
+                     "{resp_status(resp)} {resp_status_desc(resp)}."))
+
+  } else {
     info_lst <- map(resp, ~.x |> resp_body_json())
     map_dfr(info_lst, ~cbind(device_id = .x$deviceId, as.data.frame(.x$data))
     )
   }
-  # TODO proper error management
 }
 
