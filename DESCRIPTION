@@ -17,10 +17,14 @@ URL: https://github.com/camembR/microinverterdata
 Encoding: UTF-8
 LazyData: true
 Imports:
+    cli,
+    dplyr,
+    glue,
     httr2,
-    future,
     purrr,
     tidyr,
-    dplyr,
     tibble
 RoxygenNote: 7.3.2
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
