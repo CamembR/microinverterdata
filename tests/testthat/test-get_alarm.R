@@ -1,6 +1,7 @@
 test_that("get_alarm() works with a single device from APSystems", {
   skip_if_offline(host = apsystems_host)
   skip_on_os("windows")
+  skip_on_cran()
   expect_error(
     get_alarm(apsystems_host),
     NA)
@@ -16,6 +17,7 @@ test_that("get_alarm() works with a single device from APSystems", {
 test_that("get_alarm() works with multiple devices from APSystems", {
   skip_if_offline(host = apsystems_host)
   skip_on_os("windows")
+  skip_on_cran()
   expect_error(
     get_alarm(apsystems_multi),
     NA)
