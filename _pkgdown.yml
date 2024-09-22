@@ -7,7 +7,11 @@ development:
 
 navbar:
  structure:
-  left:  [home, reference, news]
+  left:  [home, articles, reference, news]
   right: [github]
  components:
-  articles: ~
+  articles:
+    text: Articles
+    menu:
+      - text: Setup APSystems devices
+        href: articles/APSystems_devices.html
