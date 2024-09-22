@@ -5,11 +5,10 @@
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/CamembR/microinverterdata/workflows/R-CMD-check/badge.svg)](https://github.com/CamembR/microinverterdata/actions)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/microinverterdata)](https://CRAN.R-project.org/package=microinverterdata)
 [![](https://cranlogs.r-pkg.org/badges/microinverterdata)](https://cran.r-project.org/package=microinverterdata)
+[![R-CMD-check](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of microinverterdata is to provide access to your local
