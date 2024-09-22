@@ -63,3 +63,4 @@ The package here requires minimal version and configuration for the supported in
 | Inverter Manufacturer | Inverter Model | Firmware version | Configuration |
 |---|---|---|---|
 | APSystems | EZ1 | ≥ 1.7.0 | Continuous local mode |
+| Enphase | Envoy-S | D5.x.x | |
