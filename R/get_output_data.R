@@ -15,6 +15,7 @@
 #' @importFrom rlang .data
 #'
 get_output_data <- function(device_ip, model = "APSystems") {
+
   if (model == "APSystems") {
     out_tbl <- query_ap_devices(device_ip, "getOutputData") |>
       rename(inverter_1_output_power = "p1", inverter_1_today_energy = "e1",
@@ -28,6 +29,7 @@ get_output_data <- function(device_ip, model = "APSystems") {
            across(ends_with("_power"), \(x) set_units(x, "W")),
            across(ends_with("_energy"), \(x) set_units(x, "kW/h"))
     )
+
   } else {
     cli::cli_abort(c("Your device model {.var model} is not supported yet. Please raise an ",
                      cli::style_hyperlink("issue", "https://github.com/CamembR/microinverterdata/issues/new/choose"),

@@ -41,7 +41,7 @@ query_ap_device <- function(device_ip, query) {
 #'                  )
 query_ap_devices <- function(device_ip, query) {
   url <- glue::glue("http://{unique(device_ip)}:8050/{query}")
-  resp <- map(url, ~.x |> request() |> req_perform())
+  resp <- map(url, ~.x |> request() |> req_perform(error_call = rlang::caller_env()))
   response_is_error <- map_lgl(resp, resp_is_error)
   if (any(response_is_error)) {
     cli::cli_abort(c("Connection to device {.var device_ip[response_is_error]} raise an error : ",
