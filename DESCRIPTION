@@ -1,7 +1,7 @@
 Package: microinverterdata
 Type: Package
 Title: Collect your microinverter data
-Version: 0.1.0
+Version: 0.0.9
 Authors@R: c(
     person(given = "Christophe",
            family = "Regouby",
@@ -16,7 +16,7 @@ BugReports: https://github.com/camembR/microinverterdata/issues
 URL: https://camembr.github.io/microinverterdata/
 Encoding: UTF-8
 LazyData: true
-Imports:
+Imports: 
     cli,
     dplyr,
     glue,
@@ -28,7 +28,9 @@ Imports:
     units
 RoxygenNote: 7.3.2
 Suggests: 
+    httptest2,
     knitr,
+    pins,
     rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
