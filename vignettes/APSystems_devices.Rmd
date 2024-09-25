@@ -1,5 +1,5 @@
 ---
-title: "APSystems devices"
+title: "APSystems_devices"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{APSystems_devices}

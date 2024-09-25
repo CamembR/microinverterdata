@@ -1,5 +1,6 @@
 ## code to update {pins} local board `inverter_data` dataset
-## this requires the setup of the environment variables `APSYSTEMS_HOST1` and `APSYSTEMS_HOST2`
+## this requires the setup of the environment variables
+## `APSYSTEMS_HOST1` and `APSYSTEMS_HOST2`with the IP address of your inverter(s)
 board <- pins::board_local()
 
 history <- board |> pins::pin_read("inverter_data")
