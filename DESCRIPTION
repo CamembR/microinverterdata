@@ -1,6 +1,6 @@
 Package: microinverterdata
 Type: Package
-Title: Collect your microinverter data
+Title: Collect your Microinverter Data
 Version: 0.0.9
 Authors@R: c(
     person(given = "Christophe",
@@ -9,8 +9,8 @@ Authors@R: c(
            email = "christophe.regouby@free.fr"
            )
     )
-Description: Collect local microinverter data through API requests on
-    your local area network. Currently supports APSystem micro-inverter.
+Description: Collect local micro-inverter data through API requests on
+    your local area network. Currently supports 'APSystems' micro-inverter.
 License: MIT + file LICENSE
 BugReports: https://github.com/camembR/microinverterdata/issues
 URL: https://camembr.github.io/microinverterdata/
