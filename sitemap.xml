@@ -1,10 +1,12 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://camembr.github.io/microinverterdata/404.html</loc></url>
 <url><loc>https://camembr.github.io/microinverterdata/LICENSE-text.html</loc></url>
+<url><loc>https://camembr.github.io/microinverterdata/LICENSE.html</loc></url>
 <url><loc>https://camembr.github.io/microinverterdata/articles/APSystems_devices.html</loc></url>
 <url><loc>https://camembr.github.io/microinverterdata/articles/index.html</loc></url>
 <url><loc>https://camembr.github.io/microinverterdata/authors.html</loc></url>
 <url><loc>https://camembr.github.io/microinverterdata/index.html</loc></url>
+<url><loc>https://camembr.github.io/microinverterdata/news/index.html</loc></url>
 <url><loc>https://camembr.github.io/microinverterdata/reference/get_alarm.html</loc></url>
 <url><loc>https://camembr.github.io/microinverterdata/reference/get_device_info.html</loc></url>
 <url><loc>https://camembr.github.io/microinverterdata/reference/get_output_data.html</loc></url>
