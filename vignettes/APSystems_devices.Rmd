@@ -36,4 +36,4 @@ Here is a summary of the expected configuration of each and every inverter to re
 
 | Direct-connect device page                 | Direct-connect device settings          | Setting local mode for Continuous local mode |
 |------------------------|-----------------------|-------------------------|
-| ![](images/Direct_connect_device_page.png) | ![](images/Direct_connect_settings.png) | ![](images/Settings_local_mode.png)          |
+| ![Screenshot of the AP EasyPower application for the Device page showing live microinverter data](images/Direct_connect_device_page.png) | ![Screenshot of the AP EasyPower application for the Device Settings page showing direct connect ](images/Direct_connect_settings.png) | ![Screenshot of the AP EasyPower application for the Device local-mode page showing correct options with enable-local mode and enable level continuous](images/Settings_local_mode.png)          |
