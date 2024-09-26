@@ -63,10 +63,26 @@ board |> pin_write(rbind(history, new_data), name = "inverter_data", versioned =
 ```{r}
 board |> pin_versions("inverter_data")
 ```
+
+## All-in-one in a script
+
 As we know the dynamic behavior, we can move that to a R script and run it on a regular basis with system tools like crontab for linux : 
 
-```{bash}
+```{bash, eval=FALSE}
 crontab -l
+```
+ 
+and you can use and edit the following file
+```{r}
+system.file("inverter_data.R", package = "microinverterdata")
+```
+
+and setup (or remove) the environment variables required for the script to run, then put that script in the crontab 
+to run it every 30 min like in the following crontab entry
+
+```
+# m h dom mon dow command
+0,30 * * * * R CMD BATCH inverter_data.R
 ```
 
 
