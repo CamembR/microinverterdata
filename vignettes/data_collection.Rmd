@@ -10,7 +10,9 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = FALSE,
+  purl = FALSE
 )
 library(httptest2)
 start_vignette("data_collection")
@@ -68,7 +70,7 @@ board |> pin_versions("inverter_data")
 
 As we know the dynamic behavior, we can move that to a R script and run it on a regular basis with system tools like crontab for linux : 
 
-```{bash, eval=FALSE}
+```{bash}
 crontab -l
 ```
  
