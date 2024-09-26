@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 library(httptest2)
-start_vignette("APSystems_devices")
+start_vignette("data_collection")
 ```
 
 ```{r setup}
