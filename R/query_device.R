@@ -80,9 +80,15 @@ query_enphase_device <- function(device_ip, query, username = Sys.getenv("ENPHAS
   if (resp_is_error(resp)) {
     cli::cli_abort(c("Connection to device {.var device_ip} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
+
   } else {
     info_lst <- resp |> resp_body_json()
-    cbind(device_id = info_lst$serialNumber, as.data.frame(info_lst))
+
+    if (info_lst[["production"]][[1]][["activeCount"]] > 0) {
+      cbind(device_id = info_lst$serialNumber, as.data.frame(info_lst))
+    } else {
+      cli::cli_abort(c("the Enphase device {.var device_ip} does not have the correct Metering setup"))
+    }
   }
 }
 
