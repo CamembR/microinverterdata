@@ -1,6 +1,6 @@
 Package: microinverterdata
 Type: Package
-Title: Collect your microinverter data
+Title: Collect your Microinverter Data
 Version: 0.1.0
 Authors@R: c(
     person(given = "Christophe",
@@ -10,13 +10,13 @@ Authors@R: c(
            )
     )
 Description: Collect local microinverter data through API requests on
-    your local area network. Currently supports APSystem micro-inverter.
+    your local area network. Currently supports 'APSystems' microinverters.
 License: MIT + file LICENSE
 BugReports: https://github.com/camembR/microinverterdata/issues
-URL: https://github.com/camembR/microinverterdata, https://camembr.github.io/microinverterdata/
+URL: https://camembr.github.io/microinverterdata/
 Encoding: UTF-8
 LazyData: true
-Imports:
+Imports: 
     cli,
     dplyr,
     glue,
@@ -28,8 +28,12 @@ Imports:
     units
 RoxygenNote: 7.3.2
 Suggests: 
+    httptest2,
     knitr,
+    lubridate,
+    pins,
     rmarkdown,
+    tibble,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr

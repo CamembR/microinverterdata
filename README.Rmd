@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 # microinverterdata
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml)
-[![CRAN status](https://www.r-pkg.org/badges/version/microinverterdata)](https://CRAN.R-project.org/package=microinverterdata)
-[![](https://cranlogs.r-pkg.org/badges/microinverterdata)](https://cran.r-project.org/package=microinverterdata)
+
+[![R-CMD-check](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml) [![CRAN status](https://www.r-pkg.org/badges/version/microinverterdata)](https://CRAN.R-project.org/package=microinverterdata) [![](https://cranlogs.r-pkg.org/badges/microinverterdata)](https://cran.r-project.org/package=microinverterdata)
+
 <!-- badges: end -->
 
 The goal of microinverterdata is to provide access to your local micro-inverter data.
@@ -43,6 +43,7 @@ library(microinverterdata)
 get_output_data(device_ip = "192.168.0.75")
 
 ```
+
 The single device here includes 2 separated inverters. We get one row of data per inverter, i.e. per solar panel.
 
 You can also use a vector of IP adresses for `device_ip`. Thus the command would run on all the inverters
@@ -53,14 +54,13 @@ get_output_data(device_ip = c("192.168.0.75", "192.168.0.186"))
 
 ```
 
-The packages also gives access to inverter information through `get_device_info()`
-and inverter internal alarms through `get_alarm()`.
+The packages also gives access to inverter information through `get_device_info()` and inverter internal alarms through `get_alarm()`.
 
 ## Inverter support and configuration
 
-The package here requires minimal version and configuration for the supported inverters : 
+The package here requires minimal version and configuration for the supported inverters :
 
 | Inverter Manufacturer | Inverter Model | Firmware version | Configuration |
-|---|---|---|---|
-| APSystems | EZ1 | ≥ 1.7.0 | Continuous local mode |
+|------------------|------------------|------------------|------------------|
+| APSystems | EZ1 | ≥ 1.7.0 | [Continuous local mode](https://camembr.github.io/microinverterdata/articles/APSystems_devices.html) |
 | Enphase | Envoy-S | D5.x.x | |
