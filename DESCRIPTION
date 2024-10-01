@@ -9,8 +9,9 @@ Authors@R: c(
            email = "christophe.regouby@free.fr"
            )
     )
-Description: Collect local microinverter data through API requests on
-    your local area network. Currently supports 'APSystems' microinverters.
+Description: Collect and normalize local microinverter energy and power production
+    data through off-cloud API requests. Currently supports 'APSystems'
+    microinverters.
 License: MIT + file LICENSE
 BugReports: https://github.com/camembR/microinverterdata/issues
 URL: https://camembr.github.io/microinverterdata/
