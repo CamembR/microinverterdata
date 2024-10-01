@@ -18,7 +18,7 @@ a data-frame with one row of device information per `device_id` answering the qu
 Get inverter device information
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontrun{
 get_device_info(c("192.168.0.12", "192.168.0.230"))
-\dontshow{\}) # examplesIf}
+}
 }

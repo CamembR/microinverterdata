@@ -19,7 +19,8 @@ a dataframe with one row of device output power and energy per
 Get inverter output data
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontrun{
 get_output_data(c("192.168.0.12", "192.168.0.230"))
-\dontshow{\}) # examplesIf}
+}
+
 }
