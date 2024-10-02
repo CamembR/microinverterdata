@@ -19,7 +19,7 @@ a data-frame with a `device_id` column and the `$data` turned into
 AP System single device query
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontrun{
 query_ap_device(device_ip = "192.168.0.234", query = "getDeviceInfo")
-\dontshow{\}) # examplesIf}
+}
 }

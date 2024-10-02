@@ -8,8 +8,10 @@
 #' @export
 #' @importFrom httr2 request req_perform resp_is_error resp_body_json resp_status resp_status_desc
 #'
-#' @examplesIf FALSE
+#' @examples
+#' \dontrun{
 #' query_ap_device(device_ip = "192.168.0.234", query = "getDeviceInfo")
+#' }
 query_ap_device <- function(device_ip, query) {
   stopifnot("device_IP shall be an atomic character string" = length(device_ip) == 1)
   url <- glue::glue("http://{device_ip}:8050/{query}")
@@ -35,10 +37,12 @@ query_ap_device <- function(device_ip, query) {
 #' @importFrom httr2 request req_perform resp_is_error resp_body_json resp_status resp_status_desc
 #' @importFrom purrr map map_lgl map_dfr
 #'
-#' @examplesIf FALSE
+#' @examples
+#' \dontrun{
 #' query_ap_devices(device_ip = c("192.168.0.234", "192.168.0.235"),
 #'                  query = "getDeviceInfo"
 #'                  )
+#' }
 query_ap_devices <- function(device_ip, query) {
   url <- glue::glue("http://{unique(device_ip)}:8050/{query}")
   resp <- map(url, ~.x |> request() |> req_perform(error_call = rlang::caller_env()))

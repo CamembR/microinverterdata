@@ -9,8 +9,10 @@
 #'   `device_id` / `inverter` combination.
 #' @export
 #'
-#' @examplesIf FALSE
+#' @examples
+#' \dontrun{
 #' get_output_data(c("192.168.0.12", "192.168.0.230"))
+#' }
 #'
 #' @importFrom dplyr mutate across ends_with rename
 #' @importFrom tidyr pivot_longer separate pivot_wider
