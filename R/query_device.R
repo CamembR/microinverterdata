@@ -74,9 +74,11 @@ query_ap_devices <- function(device_ip, query) {
 #' @export
 #' @importFrom httr2 request req_perform resp_is_error resp_body_json resp_status resp_status_desc
 #'
-#' @examplesIf FALSE
-#' query_enphase_device(device_ip = "192.168.0.234", query = "getDeviceInfo")
-query_enphase_device <- function(device_ip, query, username = Sys.getenv("ENPHASE_USERNAME"), password = Sys.getenv("ENPHASE_PASSWORD")) {
+#' @examples
+#' \dontrun{
+#' query_enphase_device(device_ip = "192.168.0.234", query = "production/inverters/")
+#' }
+query_enphase_device <- function(device_ip = "enphase.local", query, username = Sys.getenv("ENPHASE_USERNAME"), password = Sys.getenv("ENPHASE_PASSWORD")) {
   stopifnot("device_IP shall be an atomic character string" = length(device_ip) == 1)
   url <- glue::glue("http://{device_ip}/api/v1/{query}")
   req <- request(url) |> req_auth_basic(username, password)
