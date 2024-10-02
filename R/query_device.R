@@ -77,9 +77,9 @@ query_ap_devices <- function(device_ip, query) {
 #'
 #' @examples
 #' \dontrun{
-#' query_fronius_device(device_ip = "192.168.0.234", query = "getDeviceInfo")
+#' query_fronius_device(device_ip = "192.168.0.234", query = "GetInverterRealtimeData.cgi?Scope=System")
 #' }
-query_fronius_device <- function(device_ip, query, username = Sys.getenv("FRONIUS_USERNAME"), password = Sys.getenv("FRONIUS_PASSWORD")) {
+query_fronius_device <- function(device_ip = "fronius.local", query, username = Sys.getenv("FRONIUS_USERNAME"), password = Sys.getenv("FRONIUS_PASSWORD")) {
   check_device_ip(device_ip)
   url <- glue::glue("http://{device_ip}/api/v1/{query}")
   req <- request(url) |> req_auth_basic(username, password)
@@ -94,7 +94,7 @@ query_fronius_device <- function(device_ip, query, username = Sys.getenv("FRONIU
     if (info_lst[["production"]][[1]][["activeCount"]] > 0) {
       cbind(device_id = info_lst$serialNumber, as.data.frame(info_lst))
     } else {
-      cli::cli_abort(c("the Enphase device {.var device_ip} does not have the correct Metering setup"))
+      cli::cli_abort(c("the Fronius device {.var device_ip} does not have the correct Metering setup"))
     }
   }
 }
