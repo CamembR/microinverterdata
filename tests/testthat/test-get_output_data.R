@@ -32,6 +32,6 @@ test_that("get_output_data() works with multiple devices from APSystems", {
 
 test_that("get_output_data() raise an explicit message for unsupported model", {
   expect_error(
-    get_output_data(apsystems_host, model = "Enphase"),
+    get_output_data(apsystems_host, model = "SMA"),
     "is not supported yet")
 })

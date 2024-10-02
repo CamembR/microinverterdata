@@ -69,3 +69,4 @@ supported inverters :
 | Inverter Manufacturer | Inverter Model | Firmware version  | Configuration         |
 |-----------------------|----------------|-------------------|-----------------------|
 | APSystems             | EZ1            | ≥ 1.7.0           | [Continuous local mode](https://camembr.github.io/microinverterdata/articles/APSystems_devices.html) |
+| Fronius               | multiple       | ≥ 1.7             |                       |

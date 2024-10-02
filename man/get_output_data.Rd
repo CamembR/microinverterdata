@@ -4,12 +4,15 @@
 \alias{get_output_data}
 \title{Get inverter output data}
 \usage{
-get_output_data(device_ip, model = "APSystems")
+get_output_data(device_ip, model = "APSystems", ...)
 }
 \arguments{
 \item{device_ip}{list or vector of devices IP address}
 
-\item{model}{the inverter device model. Currently only "APSystems" is supported.}
+\item{model}{the inverter device model. Currently only "APSystems"
+"Enphase-Envoy-S" and "Fronius" are supported.}
+
+\item{...}{additional parameters passed to the inverter if needed.}
 }
 \value{
 a dataframe with one row of device output power and energy per
