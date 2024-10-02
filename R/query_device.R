@@ -70,7 +70,7 @@ query_ap_devices <- function(device_ip, query) {
 #' @param password the password needed to authenticate to the inverter.
 #'  Defaults to the `FRONIUS_PASSWORD` environment variable.
 #'
-#' @return a data-frame with a `device_id` column and the `$data` turned into
+#' @return a data-frame with a `device_id` column and the `$Body$Data` turned into
 #'    as many columns as expected
 #' @export
 #' @importFrom httr2 request req_perform resp_is_error resp_body_json resp_status resp_status_desc
@@ -81,7 +81,7 @@ query_ap_devices <- function(device_ip, query) {
 #' }
 query_fronius_device <- function(device_ip = "fronius.local", query, username = Sys.getenv("FRONIUS_USERNAME"), password = Sys.getenv("FRONIUS_PASSWORD")) {
   check_device_ip(device_ip)
-  url <- glue::glue("http://{device_ip}/api/v1/{query}")
+  url <- glue::glue("http://{device_ip}/solar_api/v1/{query}")
   req <- request(url) |> req_auth_basic(username, password)
   resp <- req |> req_perform()
   if (resp_is_error(resp)) {
@@ -91,8 +91,8 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
   } else {
     info_lst <- resp |> resp_body_json()
 
-    if (info_lst[["production"]][[1]][["activeCount"]] > 0) {
-      cbind(device_id = info_lst$serialNumber, as.data.frame(info_lst))
+    if (info_lst[["Head"]][["Status"]][["Code"]] == 0) {
+      cbind(device_id = device_ip, last_report = info_lst$Head$Timestamp, as.data.frame(info_lst$Body$Data))
     } else {
       cli::cli_abort(c("the Fronius device {.var device_ip} does not have the correct Metering setup"))
     }
