@@ -1,0 +1,10 @@
+pandoc: 3.1.11
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  APSystems_devices: APSystems_devices.html
+  data_collection: data_collection.html
+last_built: 2024-10-04T17:36Z
+urls:
+  reference: https://camembr.github.io/microinverterdata/reference
+  article: https://camembr.github.io/microinverterdata/articles
