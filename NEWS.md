@@ -1,3 +1,7 @@
+# microinverterdata (development version)
+
+* manage device unreachable error
+
 # microinverterdata 0.1.0
 
 * Initial CRAN submission.
