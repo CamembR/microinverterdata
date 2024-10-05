@@ -24,7 +24,7 @@ with_mock_dir("fronius", {
     expect_true(is.data.frame(fronius_data))
     expect_equal(
       names(fronius_data),
-      c("device_id", "inverter", "output_power", "today_energy", "lifetime_energy")
+      c("device_id", "last_report", "today_energy", "output_power", "lifetime_energy", "year_energy")
     )
     expect_equal(nrow(fronius_data), 1L)
   })

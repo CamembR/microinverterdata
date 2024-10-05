@@ -14,7 +14,7 @@
 #' get_output_data(c("192.168.0.12", "192.168.0.230"))
 #' }
 #'
-#' @importFrom dplyr mutate across ends_with rename
+#' @importFrom dplyr mutate across ends_with rename select ends_with
 #' @importFrom tidyr pivot_longer separate pivot_wider
 #' @importFrom purrr map_dfr
 #' @importFrom units set_units
@@ -51,7 +51,8 @@ get_output_data <- function(device_ip, model = "APSystems", ...) {
     out_tbl <- map_dfr(device_ip, ~query_fronius_device(.x, "GetInverterRealtimeData.cgi?Scope=System") |>
       rename(output_power = "PAC.1", today_energy = "DAY_ENERGY.1",
              year_energy = "YEAR_ENERGY.1",  lifetime_energy = "TOTAL_ENERGY.1"
-      ))
+      )) |>
+      select(-ends_with(".Unit"))
     mutate(out_tbl,
            last_report = as.POSIXct(last_report),
            across(ends_with("_power"), \(x) set_units(x, "W")),
