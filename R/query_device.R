@@ -59,6 +59,11 @@ query_ap_devices <- function(device_ip, query) {
                             otherwise = response(504))
   )
   response_is_error <- map_lgl(resp, resp_is_error)
+
+  if (all(response_is_error)) {
+    cli::cli_abort("Connection to all devices raised an error.")
+  }
+
   if (any(response_is_error)) {
     cli::cli_warn(c(
       "Connection to device {.var device_ip[response_is_error]} raise an error : ",
@@ -175,7 +180,7 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
 #' @export
 #' @importFrom httr2 request response req_perform resp_is_error
 #' @importFrom httr2 resp_body_json resp_status resp_status_desc
-#' @importFrom purrr map map_lgl map_dfr possibly walk
+#' @importFrom purrr map map_lgl map_dfr map2_dfr possibly walk
 #'
 #'
 #' @examples
@@ -189,18 +194,24 @@ query_fronius_devices <- function(device_ip = c("fronius.local"), query, usernam
                             otherwise = response(504))
   )
   response_is_error <- map_lgl(resp, resp_is_error)
+  if (all(response_is_error)) {
+    cli::cli_abort("Connection to all devices raised an error.")
+  }
+
   if (any(response_is_error)) {
     cli::cli_warn(c(
       "Connection to device {.var device_ip[response_is_error]} raise an error : ",
       "{map(response_is_error, ~resp_status(resp[[.x]]))} {map(response_is_error, ~resp_status_desc(resp[[.x]]))}."
     ))
   }
+
   info_lst <- map(resp[!response_is_error], ~.x |> resp_body_json())
-  incorrect_status_code <- map_lgl(    info_lst,     ~x[["Head"]][["Status"]][["Code"]] != 0)
+  incorrect_status_code <- map_lgl(info_lst, ~.x[["Head"]][["Status"]][["Code"]] != 0)
+
   if (any(incorrect_status_code)) {
     cli::cli_warn("the Fronius device {.var device_ip[incorrect_status_code]} does not have the correct Metering setup")
-
   }
+
   map2_dfr(device_ip[!response_is_error][!incorrect_status_code], info_lst[!incorrect_status_code],
     ~cbind(device_id = .x, last_report = .y$Head$Timestamp, as.data.frame(.y$Body$Data))
   )

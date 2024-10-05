@@ -48,10 +48,10 @@ get_output_data <- function(device_ip, model = "APSystems", ...) {
     )
 
   } else if (model == "Fronius") {
-    out_tbl <- map_dfr(device_ip, ~query_fronius_device(.x, "GetInverterRealtimeData.cgi?Scope=System") |>
+    out_tbl <- query_fronius_devices(device_ip, "GetInverterRealtimeData.cgi?Scope=System") |>
       rename(output_power = "PAC.1", today_energy = "DAY_ENERGY.1",
              year_energy = "YEAR_ENERGY.1",  lifetime_energy = "TOTAL_ENERGY.1"
-      )) |>
+      ) |>
       select(-ends_with(".Unit"))
     mutate(out_tbl,
            last_report = as.POSIXct(last_report),

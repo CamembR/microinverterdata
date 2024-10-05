@@ -11,10 +11,10 @@
             "PlatformID": "wilma",
             "ProductID": "fronius-hybrid",
             "SWVersion": "1.8.1-9",
-            "TimezoneLocation": "Berlin",
+            "TimezoneLocation": "Paris",
             "TimezoneName": "CET",
             "UTCOffset": 3600,
-            "UniqueID": "239.6545"
+            "UniqueID": "293.6455"
         }
     },
     "Head": {
@@ -24,6 +24,6 @@
             "Reason": "",
             "UserMessage": ""
         },
-        "Timestamp": "2018-03-17T09:37:07+01:00"
+        "Timestamp": "2020-11-17T19:18:09+02:00"
     }
 }
