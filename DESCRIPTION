@@ -1,7 +1,7 @@
 Package: microinverterdata
 Type: Package
 Title: Collect your Microinverter Data
-Version: 0.1.0.9000
+Version: 0.1.1
 Authors@R: c(
     person(given = "Christophe",
            family = "Regouby",
@@ -10,7 +10,7 @@ Authors@R: c(
            )
     )
 Description: Collect and normalize local microinverter energy and power production
-    data through off-cloud API requests. Currently supports 'APSystems'
+    data through off-cloud API requests. Currently supports 'APSystems' and 'Enphase'
     microinverters.
 License: MIT + file LICENSE
 BugReports: https://github.com/camembR/microinverterdata/issues

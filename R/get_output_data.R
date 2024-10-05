@@ -1,6 +1,9 @@
 #' Get inverter output data
 #'
 #' @inheritParams get_device_info
+#' @param model the inverter device model. Currently only "APSystems"
+#'   and "Enphase-Envoy-S" are supported.
+#' @param ... additional parameters passed to the inverter if needed.
 #'
 #' @return a dataframe with one row of device output power and energy per
 #'   `device_id` / `inverter` combination.
@@ -16,7 +19,7 @@
 #' @importFrom units set_units
 #' @importFrom rlang .data
 #'
-get_output_data <- function(device_ip, model = "APSystems") {
+get_output_data <- function(device_ip, model = "APSystems", ...) {
 
   if (model == "APSystems") {
     out_tbl <- query_ap_devices(device_ip, "getOutputData") |>
@@ -30,6 +33,17 @@ get_output_data <- function(device_ip, model = "APSystems") {
     mutate(out_tbl,
            across(ends_with("_power"), \(x) set_units(x, "W")),
            across(ends_with("_energy"), \(x) set_units(x, "kW/h"))
+    )
+
+  } else if (model == "Enphase-Envoy-S") {
+    out_tbl <- query_enphase_devices(device_ip, "production/inverters/") |>
+      rename(output_power = "lastReportWatts", output_max_power = "maxReportWatts",
+             last_report = "lastReportDate"
+      )
+    mutate(out_tbl,
+           last_report = as.POSIXct(last_report),
+           # TODO BUG may fail if not parsed as number
+           across(ends_with("_power"), \(x) set_units(x, "W"))
     )
 
   } else {
