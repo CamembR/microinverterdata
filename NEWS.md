@@ -1,11 +1,11 @@
 # microinverterdata 0.1.2
 
-* Add mocked http data for APSystems and Fronius
-* Add support for 'Fronius' inverters (`get_output_data()` only)
+* Add mocked http data for APSystems and Fronius #2
+* Add support for 'Fronius' inverters 
 
 # microinverterdata 0.1.1
 
-* Add support to Enphase Envoy-S inverters (`get_output_data()` only)
+* Add support to Enphase Envoy-S inverters (`get_output_data()` only) #1
 * manage device unreachable error
 
 # microinverterdata 0.1.0

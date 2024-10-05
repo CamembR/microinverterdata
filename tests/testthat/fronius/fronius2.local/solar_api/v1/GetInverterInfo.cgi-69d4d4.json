@@ -1,0 +1,33 @@
+{
+    "Body": {
+        "Data": {
+            "1": {
+                "CustomName": "",
+                "DT": 27,
+                "ErrorCode": 0,
+                "PVPower": 4060,
+                "Show": 1,
+                "StatusCode": 7,
+                "UniqueID": "428265"
+            },
+            "2": {
+                "CustomName": "Backup",
+                "DT": 3,
+                "ErrorCode": 0,
+                "PVPower": 4060,
+                "Show": 1,
+                "StatusCode": 7,
+                "UniqueID": "582265"
+            }
+        }
+    },
+    "Head": {
+        "RequestArguments": {},
+        "Status": {
+            "Code": 0,
+            "Reason": "",
+            "UserMessage": ""
+        },
+        "Timestamp": "2018-03-17T09:37:03+01:00"
+    }
+}

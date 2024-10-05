@@ -23,7 +23,7 @@ query_ap_device <- function(device_ip, query) {
   req <- request(url)
   resp <- req |> req_perform()
   if (resp_is_error(resp)) {
-    cli::cli_abort(c("Connection to device {.var device_ip} raise an error : ",
+    cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
   } else {
     info_lst <- resp |> resp_body_json()
@@ -66,8 +66,8 @@ query_ap_devices <- function(device_ip, query) {
 
   if (any(response_is_error)) {
     cli::cli_warn(c(
-      "Connection to device {.var device_ip[response_is_error]} raise an error : ",
-      "{map(response_is_error, ~resp_status(resp[[.x]]))} {map(response_is_error, ~resp_status_desc(resp[[.x]]))}."
+      "Connection to device {.var {device_ip[response_is_error]}} raise an error : ",
+      "{map(which(response_is_error), ~resp_status(resp[[.x]]))} {map(which(response_is_error), ~resp_status_desc(resp[[.x]]))}."
       ))
   }
 
@@ -106,7 +106,7 @@ query_enphase_device <- function(device_ip = "enphase.local", query, username = 
   req <- request(url) |> req_auth_basic(username, password)
   resp <- req |> req_perform()
   if (resp_is_error(resp)) {
-    cli::cli_abort(c("Connection to device {.var device_ip} raise an error : ",
+    cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
 
   } else {
@@ -115,7 +115,7 @@ query_enphase_device <- function(device_ip = "enphase.local", query, username = 
     if (info_lst[["production"]][[1]][["activeCount"]] > 0) {
       cbind(device_id = info_lst$serialNumber, as.data.frame(info_lst))
     } else {
-      cli::cli_abort(c("the Enphase device {.var device_ip} does not have the correct Metering setup"))
+      cli::cli_abort(c("the Enphase device {.var {device_ip}} does not have the correct Metering setup"))
     }
   }
 }
@@ -150,7 +150,7 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
   req <- request(url) |> req_auth_basic(username, password)
   resp <- req |> req_perform()
   if (resp_is_error(resp)) {
-    cli::cli_abort(c("Connection to device {.var device_ip} raise an error : ",
+    cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
 
   } else {
@@ -159,7 +159,7 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
     if (info_lst[["Head"]][["Status"]][["Code"]] == 0) {
       cbind(device_id = device_ip, last_report = info_lst$Head$Timestamp, as.data.frame(info_lst$Body$Data))
     } else {
-      cli::cli_abort(c("the Fronius device {.var device_ip} does not have the correct Metering setup"))
+      cli::cli_abort(c("the Fronius device {.var {device_ip}} does not have the correct Metering setup"))
     }
   }
 }
@@ -200,8 +200,8 @@ query_fronius_devices <- function(device_ip = c("fronius.local"), query, usernam
 
   if (any(response_is_error)) {
     cli::cli_warn(c(
-      "Connection to device {.var device_ip[response_is_error]} raise an error : ",
-      "{map(response_is_error, ~resp_status(resp[[.x]]))} {map(response_is_error, ~resp_status_desc(resp[[.x]]))}."
+      "Connection to device {.var {device_ip[response_is_error]}} raise an error : ",
+      "{map(which(response_is_error), ~resp_status(resp[[.x]]))} {map(which(response_is_error), ~resp_status_desc(resp[[.x]]))}."
     ))
   }
 
@@ -209,7 +209,7 @@ query_fronius_devices <- function(device_ip = c("fronius.local"), query, usernam
   incorrect_status_code <- map_lgl(info_lst, ~.x[["Head"]][["Status"]][["Code"]] != 0)
 
   if (any(incorrect_status_code)) {
-    cli::cli_warn("the Fronius device {.var device_ip[incorrect_status_code]} does not have the correct Metering setup")
+    cli::cli_warn("the Fronius device {.var {device_ip[incorrect_status_code]}} does not have the correct Metering setup")
   }
 
   map2_dfr(device_ip[!response_is_error][!incorrect_status_code], info_lst[!incorrect_status_code],

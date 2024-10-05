@@ -5,7 +5,8 @@
 #'
 #' @return a data-frame with one row of device information per `device_id` answering the query.
 #' @export
-#' @importFrom dplyr rename_with
+#' @importFrom dplyr mutate across starts_with filter
+#' @importFrom tidyr pivot_longer separate_wider_regex pivot_wider
 #'
 #' @examples
 #' \dontrun{
@@ -16,8 +17,15 @@ get_device_info <- function(device_ip, model = "APSystems") {
     query_ap_devices(device_ip, "getDeviceInfo")[,c(1,3:7)]
 
   } else if (model == "Fronius") {
+    info_cols <- c("CustomName","DT","PVPower", "Show", "UniqueID")
     query_fronius_devices(device_ip, "GetInverterInfo.cgi?Scope=System") |>
-      rename_with(~gsub("X1.", "", .x, fixed = TRUE))
+      mutate(across(starts_with("X"), as.character)) |>
+      pivot_longer(cols = starts_with("X")) |>
+      separate_wider_regex("name", patterns = c(".", inverter = "\\d+",".", info = "\\D+$")) |>
+      filter(info %in% info_cols) |>
+      pivot_wider(names_from = "info", values_from = "value") # |>
+      # TODO need to filter out all empty rows
+      # filter(across(info_cols), ~!is.na(.))
 
   } else {
     cli::cli_abort(c("Your device model {.var model} is not supported yet. Please raise an ",
