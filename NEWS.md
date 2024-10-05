@@ -1,4 +1,4 @@
-# microinverterdata (development version)
+# microinverterdata 0.1.1
 
 * manage device unreachable error
 
