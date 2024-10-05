@@ -1,3 +1,5 @@
+# microinverterdata 0.1.2
+
 # microinverterdata 0.1.1
 
 * Add support to Enphase Envoy-S inverters
