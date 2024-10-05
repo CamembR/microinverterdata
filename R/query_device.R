@@ -34,8 +34,8 @@ query_ap_device <- function(device_ip, query) {
 #' @return a data-frame with a row for each `device_id`, and the `$data` turned into
 #'    as many columns as expected
 #' @export
-#' @importFrom httr2 request req_perform resp_is_error resp_body_json resp_status resp_status_desc
-#' @importFrom purrr map map_lgl map_dfr
+#' @importFrom httr2 request req_perform resp_is_error resp_body_json resp_status resp_status_desc response
+#' @importFrom purrr map map_lgl map_dfr map_dbl map_chr possibly
 #'
 #' @examples
 #' \dontrun{
@@ -45,11 +45,13 @@ query_ap_device <- function(device_ip, query) {
 #' }
 query_ap_devices <- function(device_ip, query) {
   url <- glue::glue("http://{unique(device_ip)}:8050/{query}")
-  resp <- map(url, ~.x |> request() |> req_perform(error_call = rlang::caller_env()))
+  resp <- map(url, possibly(~.x |> request() |> req_perform(error_call = rlang::caller_env()),
+                            otherwise = response(504))
+              )
   response_is_error <- map_lgl(resp, resp_is_error)
   if (any(response_is_error)) {
-    cli::cli_abort(c("Connection to device {.var device_ip[response_is_error]} raise an error : ",
-                     "{resp_status(resp)} {resp_status_desc(resp)}."))
+    cli::cli_abort(c("x" = "Connection to device{?s} {.var {device_ip[response_is_error]}} raise an error : ",
+                     "{map_dbl(resp, resp_status)} {map_chr(resp, resp_status_desc)}."))
 
   } else {
     info_lst <- map(resp, ~.x |> resp_body_json())
