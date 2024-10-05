@@ -1,5 +1,7 @@
 # microinverterdata 0.1.2
 
+* Add support for 'Fronius' inverters
+
 # microinverterdata 0.1.1
 
 * Add support to Enphase Envoy-S inverters

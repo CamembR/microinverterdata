@@ -16,6 +16,7 @@
 #'
 #' @importFrom dplyr mutate across ends_with rename
 #' @importFrom tidyr pivot_longer separate pivot_wider
+#' @importFrom purrr map_dfr
 #' @importFrom units set_units
 #' @importFrom rlang .data
 #'
@@ -36,10 +37,10 @@ get_output_data <- function(device_ip, model = "APSystems", ...) {
     )
 
   } else if (model == "Enphase-Envoy-S") {
-    out_tbl <- query_enphase_devices(device_ip, "production/inverters/") |>
+    out_tbl <- map_dfr(device_ip, ~query_enphase_device(.x, "production/inverters/") |>
       rename(output_power = "lastReportWatts", output_max_power = "maxReportWatts",
              last_report = "lastReportDate"
-      )
+      ))
     mutate(out_tbl,
            last_report = as.POSIXct(last_report),
            # TODO BUG may fail if not parsed as number
@@ -47,10 +48,10 @@ get_output_data <- function(device_ip, model = "APSystems", ...) {
     )
 
   } else if (model == "Fronius") {
-    out_tbl <- query_fronius_devices(device_ip, "GetInverterRealtimeData.cgi?Scope=System") |>
+    out_tbl <- map_dfr(device_ip, ~query_fronius_device(.x, "GetInverterRealtimeData.cgi?Scope=System") |>
       rename(output_power = "PAC.1", today_energy = "DAY_ENERGY.1",
              year_energy = "YEAR_ENERGY.1",  lifetime_energy = "TOTAL_ENERGY.1"
-      )
+      ))
     mutate(out_tbl,
            last_report = as.POSIXct(last_report),
            across(ends_with("_power"), \(x) set_units(x, "W")),

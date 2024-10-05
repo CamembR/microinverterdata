@@ -31,6 +31,6 @@ as a port of https://github.com/friissoren/pyfronius
 }
 \examples{
 \dontrun{
-query_fronius_device(device_ip = "192.168.0.234", query = "GetInverterRealtimeData.cgi?Scope=System")
+query_fronius_device(query = "GetInverterRealtimeData.cgi?Scope=System")
 }
 }
