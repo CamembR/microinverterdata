@@ -15,7 +15,7 @@
 #' }
 #'
 #' @importFrom dplyr mutate across ends_with rename select ends_with
-#' @importFrom tidyr pivot_longer separate pivot_wider
+#' @importFrom tidyr pivot_longer separate_wider_regexp pivot_wider
 #' @importFrom purrr map_dfr
 #' @importFrom units set_units
 #' @importFrom rlang .data
@@ -24,13 +24,10 @@ get_output_data <- function(device_ip, model = "APSystems", ...) {
 
   if (model == "APSystems") {
     out_tbl <- query_ap_devices(device_ip, "getOutputData") |>
-      rename(inverter_1_output_power = "p1", inverter_1_today_energy = "e1",
-                    inverter_1_lifetime_energy = "te1", inverter_2_output_power = "p2",
-                    inverter_2_today_energy = "e2", inverter_2_lifetime_energy = "te2"
-      ) |>
       pivot_longer(2:7) |>
-      separate(.data$name, into = c("inverter", "metric"), sep = "(?<=\\d)_") |>
-      pivot_wider(names_from = "metric", values_from = "value")
+      separate_wider_regex("name", patterns = c("metric" = "\\D+","inverter" = "\\d+")) |>
+      pivot_wider(names_from = "metric", values_from = "value")|>
+      rename(output_power = "p", today_energy = "e", lifetime_energy = "te")
     mutate(out_tbl,
            across(ends_with("_power"), \(x) set_units(x, "W")),
            across(ends_with("_energy"), \(x) set_units(x, "kW/h"))

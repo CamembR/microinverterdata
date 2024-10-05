@@ -6,7 +6,7 @@
 #' @return a data-frame with one row of device information per `device_id` answering the query.
 #' @export
 #' @importFrom dplyr rename_with
-#' #'
+#'
 #' @examples
 #' \dontrun{
 #' get_device_info(c("192.168.0.12", "192.168.0.230"))
