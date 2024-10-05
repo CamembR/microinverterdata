@@ -30,7 +30,7 @@ get_output_data <- function(device_ip, model = "APSystems", ...) {
       ) |>
       pivot_longer(2:7) |>
       separate(.data$name, into = c("inverter", "metric"), sep = "(?<=\\d)_") |>
-      pivot_wider(names_from = .data$metric, values_from = .data$value)
+      pivot_wider(names_from = "metric", values_from = "value")
     mutate(out_tbl,
            across(ends_with("_power"), \(x) set_units(x, "W")),
            across(ends_with("_energy"), \(x) set_units(x, "kW/h"))

@@ -12,7 +12,7 @@ query_enphase_device(
 )
 }
 \arguments{
-\item{device_ip}{IP address of the Enphase device}
+\item{device_ip}{IP address or name of the device}
 
 \item{query}{the API query string}
 
@@ -23,7 +23,7 @@ Defaults to the `ENPHASE_USERNAME` environment variable.}
 Defaults to the `ENPHASE_PASSWORD` environment variable.}
 }
 \value{
-a data-frame with a `device_id` column and the `$data` turned into
+a data-frame with a `device_id` column and the `$Body$Data` turned into
    as many columns as expected
 }
 \description{
@@ -31,6 +31,14 @@ as a port of https://github.com/mr-manuel/venus-os_dbus-enphase-envoy/tree/maste
 }
 \examples{
 \dontrun{
-query_enphase_device(device_ip = "192.168.0.234", query = "production/inverters/")
+query_enphase_device(query = "production/inverters/")
 }
 }
+\seealso{
+Other device queries: 
+\code{\link{query_ap_device}()},
+\code{\link{query_ap_devices}()},
+\code{\link{query_fronius_device}()},
+\code{\link{query_fronius_devices}()}
+}
+\concept{device queries}

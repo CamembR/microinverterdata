@@ -47,6 +47,23 @@ with_mock_dir("apsystems", {
 })
 
 
+with_mock_dir("fronius", {
+  test_that("get_output_data() works with multiple devices from Fronius", {
+    skip_on_cran()
+    expect_error(
+      get_output_data(device_ip = c("fronius.local","fronius2.local"), model = "Fronius"),
+      NA)
+    fronius_data <-  get_output_data(device_ip = c("fronius.local","fronius2.local"), model = "Fronius")
+    expect_true(is.data.frame(fronius_data))
+    expect_equal(
+      names(fronius_data),
+      c("device_id", "last_report", "today_energy", "output_power", "lifetime_energy", "year_energy")
+    )
+    expect_equal(nrow(fronius_data), 2L)
+  })
+})
+
+
 test_that("get_output_data() raise an explicit message for unsupported model", {
   expect_error(
     get_output_data(apsystems_host, model = "SMA"),

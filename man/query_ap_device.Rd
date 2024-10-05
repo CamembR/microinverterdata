@@ -7,7 +7,7 @@
 query_ap_device(device_ip, query)
 }
 \arguments{
-\item{device_ip}{IP address of the APSystem device}
+\item{device_ip}{IP address or name of the device}
 
 \item{query}{the API query string}
 }
@@ -23,3 +23,11 @@ AP System single device query
 query_ap_device(device_ip = "192.168.0.234", query = "getDeviceInfo")
 }
 }
+\seealso{
+Other device queries: 
+\code{\link{query_ap_devices}()},
+\code{\link{query_enphase_device}()},
+\code{\link{query_fronius_device}()},
+\code{\link{query_fronius_devices}()}
+}
+\concept{device queries}

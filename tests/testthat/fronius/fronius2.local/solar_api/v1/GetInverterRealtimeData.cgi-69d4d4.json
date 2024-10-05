@@ -4,25 +4,25 @@
             "DAY_ENERGY": {
                 "Unit": "Wh",
                 "Values": {
-                    "1": 414
+                    "1": 214
                 }
             },
             "PAC": {
                 "Unit": "W",
                 "Values": {
-                    "1": 308
+                    "1": 348
                 }
             },
             "TOTAL_ENERGY": {
                 "Unit": "Wh",
                 "Values": {
-                    "1": 5305086
+                    "1": 55086
                 }
             },
             "YEAR_ENERGY": {
                 "Unit": "Wh",
                 "Values": {
-                    "1": 515956
+                    "1": 5956
                 }
             }
         }
@@ -37,6 +37,6 @@
             "Reason": "",
             "UserMessage": ""
         },
-        "Timestamp": "2020-11-17T19:21:35+02:00"
+        "Timestamp": "2020-11-17T19:22:05+02:00"
     }
 }

@@ -7,12 +7,12 @@
 query_ap_devices(device_ip, query)
 }
 \arguments{
-\item{device_ip}{list or vector of each APSystem device IP address}
+\item{device_ip}{list or vector of each device IP address or name}
 
 \item{query}{the API query string}
 }
 \value{
-a data-frame with a row for each `device_id`, and the `$data` turned into
+a data-frame with a `device_id` column and the `$Body$Data` turned into
    as many columns as expected
 }
 \description{
@@ -25,3 +25,11 @@ query_ap_devices(device_ip = c("192.168.0.234", "192.168.0.235"),
                  )
 }
 }
+\seealso{
+Other device queries: 
+\code{\link{query_ap_device}()},
+\code{\link{query_enphase_device}()},
+\code{\link{query_fronius_device}()},
+\code{\link{query_fronius_devices}()}
+}
+\concept{device queries}
