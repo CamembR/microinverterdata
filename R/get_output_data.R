@@ -34,7 +34,18 @@ get_output_data <- function(device_ip, model = "APSystems", ...) {
     )
 
   } else if (model == "Enphase-Envoy-S") {
-    out_tbl <- map_dfr(device_ip, ~query_enphase_device(.x, "production/inverters/") |>
+    out_tbl <- map_dfr(device_ip, ~query_enphase_device(.x, "api/v1/production/inverters/") |>
+      rename(output_power = "lastReportWatts", output_max_power = "maxReportWatts",
+             last_report = "lastReportDate"
+      ))
+    mutate(out_tbl,
+           last_report = as.POSIXct(last_report),
+           # TODO BUG may fail if not parsed as number
+           across(ends_with("_power"), \(x) set_units(x, "W"))
+    )
+
+  } else if (model == "Enphase-Energy") {
+    out_tbl <- map_dfr(device_ip, ~query_enphase_device(.x, "stream/meter") |>
       rename(output_power = "lastReportWatts", output_max_power = "maxReportWatts",
              last_report = "lastReportDate"
       ))
