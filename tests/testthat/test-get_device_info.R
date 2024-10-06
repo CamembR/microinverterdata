@@ -2,9 +2,8 @@ with_mock_dir("apsystems", {
   test_that("get_device_info() works with a single device from APSystems", {
     skip_on_cran()
     expect_error(
-      get_device_info(apsystems_host),
+      apsystem_info <- get_device_info(apsystems_host),
       NA)
-    apsystem_info <-  get_device_info(apsystems_host)
     expect_true(is.data.frame(apsystem_info))
     expect_equal(
       names(apsystem_info),
@@ -18,9 +17,8 @@ with_mock_dir("fronius", {
   test_that("get_device_info() works with a single device from Fronius", {
     skip_on_cran()
     expect_error(
-      get_device_info(device_ip = "fronius.local", model = "Fronius"),
+      fronius_info <-  get_device_info(device_ip = "fronius.local", model = "Fronius"),
       NA)
-    fronius_info <-  get_device_info(device_ip = "fronius.local", model = "Fronius")
     expect_true(is.data.frame(fronius_info))
     expect_equal(
       names(fronius_info),
@@ -34,9 +32,8 @@ with_mock_dir("apsystems", {
   test_that("get_device_info() works with multiple devices from APSystems", {
     skip_on_cran()
     expect_error(
-      get_device_info(apsystems_multi),
+      apsystem_info <-  get_device_info(apsystems_multi),
       NA)
-    apsystem_info <-  get_device_info(apsystems_multi)
     expect_true(is.data.frame(apsystem_info))
     expect_equal(
       names(apsystem_info),
@@ -50,9 +47,8 @@ with_mock_dir("fronius", {
   test_that("get_device_info() works with multiple devices from Fronius", {
     skip_on_cran()
     expect_error(
-      get_device_info(device_ip = c("fronius.local", "fronius2.local"), model = "Fronius"),
+      fronius_info <-  get_device_info(device_ip = c("fronius.local", "fronius2.local"), model = "Fronius"),
       NA)
-    fronius_info <-  get_device_info(device_ip = c("fronius.local", "fronius2.local"), model = "Fronius")
     expect_true(is.data.frame(fronius_info))
     expect_equal(
       names(fronius_info),
