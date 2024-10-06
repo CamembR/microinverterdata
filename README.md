@@ -69,4 +69,5 @@ supported inverters :
 | Inverter Manufacturer | Inverter Model | Firmware version  | Configuration         |
 |-----------------------|----------------|-------------------|-----------------------|
 | APSystems             | EZ1            | ≥ 1.7.0           | [Continuous local mode](https://camembr.github.io/microinverterdata/articles/APSystems_devices.html) |
-| Enphase               | Envoy-S        | D5.x.x            | Need testers          |
+| Fronius | multiple | ≥ 1.7.2 | Need testers          |
+| Enphase   | Envoy-S | D5.x.x | Need testers          |

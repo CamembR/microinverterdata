@@ -10,7 +10,7 @@ get_output_data(device_ip, model = "APSystems", ...)
 \item{device_ip}{list or vector of devices IP address}
 
 \item{model}{the inverter device model. Currently only "APSystems"
-and "Enphase-Envoy-S" are supported.}
+"Enphase-Envoy-S" and "Fronius" are supported.}
 
 \item{...}{additional parameters passed to the inverter if needed.}
 }
