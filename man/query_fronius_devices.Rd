@@ -38,7 +38,8 @@ query_fronius_device(query = "GetInverterRealtimeData.cgi?Scope=System")
 Other device queries: 
 \code{\link{query_ap_device}()},
 \code{\link{query_ap_devices}()},
-\code{\link{query_enphase_device}()},
+\code{\link{query_enphaseenergy_device}()},
+\code{\link{query_enphaseenvoy_device}()},
 \code{\link{query_fronius_device}()}
 }
 \concept{device queries}

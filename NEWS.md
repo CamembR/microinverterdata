@@ -1,6 +1,10 @@
+# microinverterdata 0.1.3
+
+* Add support to Enphase Energy inverters (`get_output_data()` only) #6
+
 # microinverterdata 0.1.2
 
-* Add mocked http data for APSystems and Fronius #2
+* Add mocked http data for APSystems and Fronius #4
 * Add support for 'Fronius' inverters 
 
 # microinverterdata 0.1.1

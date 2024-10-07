@@ -77,7 +77,7 @@ query_ap_devices <- function(device_ip, query) {
 }
 
 
-#' Enphase single device query
+#' Enphase Envoy single device query
 #'
 #' as a port of https://github.com/mr-manuel/venus-os_dbus-enphase-envoy/tree/master#json-structure
 #'
@@ -98,9 +98,9 @@ query_ap_devices <- function(device_ip, query) {
 #'
 #' @examples
 #' \dontrun{
-#' query_enphase_device(query = "production/inverters/")
+#' query_enphaseenvoy_device(query = "production/inverters/")
 #' }
-query_enphase_device <- function(device_ip = "enphase.local", query, username = Sys.getenv("ENPHASE_USERNAME"), password = Sys.getenv("ENPHASE_PASSWORD")) {
+query_enphaseenvoy_device <- function(device_ip = "enphase.local", query, username = Sys.getenv("ENPHASE_USERNAME"), password = Sys.getenv("ENPHASE_PASSWORD")) {
   check_device_ip(device_ip)
   url <- glue::glue("http://{device_ip}/api/v1/{query}")
   req <- request(url) |> req_auth_basic(username, password)
@@ -115,7 +115,48 @@ query_enphase_device <- function(device_ip = "enphase.local", query, username = 
     if (info_lst[["production"]][[1]][["activeCount"]] > 0) {
       cbind(device_id = info_lst$serialNumber, as.data.frame(info_lst))
     } else {
-      cli::cli_abort(c("the Enphase device {.var {device_ip}} does not have the correct Metering setup"))
+      cli::cli_abort(c("the Enphase device {.var {device_ip}} does not have the ",
+                       "correct Metering setup, or is not supported"))
+    }
+  }
+}
+
+
+#' Enphase Energy single device query
+#'
+#' as a port of https://github.com/sarnau/EnphaseEnergy/blob/main/enphaseStreamMeter.py
+#'
+#' @inheritParams query_enphaseenvoy_device
+#'
+#' @return a data-frame with a `device_id` column and the `$Body$Data` turned into
+#'    as many columns as expected
+#'
+#' @family device queries
+#'
+#' @export
+#' @importFrom httr2 request req_perform resp_is_error resp_body_json resp_status resp_status_desc req_auth_basic response
+#' @importFrom purrr possibly
+#'
+#' @examples
+#' \dontrun{
+#' query_enphaseenergy_device(query = "stream/meter")
+#' }
+query_enphaseenergy_device <- function(device_ip = "enphase.local", query, username = Sys.getenv("ENPHASE_USERNAME"), password = Sys.getenv("ENPHASE_PASSWORD")) {
+  check_device_ip(device_ip)
+  url <- glue::glue("http://{device_ip}/{query}")
+  req <- request(url) |> req_auth_basic(username, password)
+  resp <- req |> req_perform()
+  if (resp_is_error(resp)) {
+    cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
+                     "{resp_status(resp)} {resp_status_desc(resp)}."))
+
+  } else {
+    info_lst <- resp |> resp_body_json()
+
+    if (length(info_lst[["data"]]) >= 3) {
+      cbind(device_id = device_ip, as.data.frame(info_lst[["data"]]))
+    } else {
+      cli::cli_abort(c("the Enphase device {.var {device_ip}} is not supported"))
     }
   }
 }
