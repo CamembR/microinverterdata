@@ -4,8 +4,9 @@
 #'
 #' @return a dataframe with one row of device information per `device_id` answering the query.
 #' @export
-#' @importFrom dplyr mutate across starts_with filter
+#' @importFrom dplyr mutate across starts_with filter case_when
 #' @importFrom tidyr pivot_longer separate_wider_regex pivot_wider
+#' @importFrom purrr vec_depth
 #'
 #' @examples
 #' \dontrun{
