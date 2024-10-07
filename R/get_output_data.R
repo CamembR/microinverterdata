@@ -14,9 +14,10 @@
 #' get_output_data(c("192.168.0.12", "192.168.0.230"))
 #' }
 #'
-#' @importFrom dplyr mutate across ends_with rename select ends_with
+#' @importFrom dplyr mutate across ends_with rename select
 #' @importFrom tidyr pivot_longer separate_wider_regex pivot_wider
 #' @importFrom purrr map_dfr
+#' @importFrom lubridate now
 #' @importFrom units set_units
 #' @importFrom rlang .data
 #'
@@ -46,14 +47,18 @@ get_output_data <- function(device_ip, model = "APSystems", ...) {
 
   } else if (model == "Enphase-Energy") {
     out_tbl <- map_dfr(device_ip, ~query_enphaseenergy_device(.x, "stream/meter") |>
-      rename(output_power = "lastReportWatts", output_max_power = "maxReportWatts",
-             last_report = "lastReportDate"
-      ))
+                         pivot_longer(!device_id) |>
+                         separate_wider_regex(name, patterns = c(name = ".*tion", ".", phase = "ph\\.\\w", ".", metric = "\\w$")) |>
+                         pivot_wider(names_from = "metric", values_from = "value") |>
+                         rename(power = "p", voltage = "v", current = "i")
+                       )
     mutate(out_tbl,
-           last_report = as.POSIXct(last_report),
-           # TODO BUG may fail if not parsed as number
-           across(ends_with("_power"), \(x) set_units(x, "W"))
-    )
+           last_report = now(),
+           across(ends_with("power"), \(x) set_units(x, "W")),
+           across(ends_with("voltage"), \(x) set_units(x, "V")),
+           across(ends_with("current"), \(x) set_units(x, "A"))
+    ) |>
+    select("device_id", "last_report", everything())
 
   } else if (model == "Fronius") {
     out_tbl <- query_fronius_devices(device_ip, "GetInverterRealtimeData.cgi?Scope=System") |>

@@ -37,9 +37,9 @@ with_mock_dir("enphase", {
     expect_true(is.data.frame(enphase_data))
     expect_equal(
       names(enphase_data),
-      c("device_id", "last_report", "today_energy", "output_power", "lifetime_energy", "year_energy")
+      c("device_id", "last_report", "name", "phase", "power", "voltage", "current")
     )
-    expect_equal(nrow(enphase_data), 1L)
+    expect_equal(nrow(enphase_data), 9L)
   })
 })
 
