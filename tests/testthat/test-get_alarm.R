@@ -12,9 +12,7 @@ with_mock_dir("apsystems", {
     )
     expect_equal(nrow(apsystem_alarm), 1L)
   })
-})
 
-with_mock_dir("apsystems", {
   test_that("get_alarm() works with multiple devices from APSystems", {
     skip_on_cran()
     expect_error(
