@@ -7,6 +7,7 @@
 #' @importFrom dplyr mutate across starts_with filter case_when
 #' @importFrom tidyr pivot_longer separate_wider_regex pivot_wider
 #' @importFrom purrr vec_depth
+#' @importFrom rlang .data
 #'
 #' @examples
 #' \dontrun{
@@ -27,7 +28,7 @@ get_alarm <- function(device_ip, model = "APSystems") {
       mutate(across(starts_with("X"), as.character)) |>
       pivot_longer(cols = starts_with("X")) |>
       separate_wider_regex("name", patterns = c(".", inverter = "\\d+",".", info = "\\D+$")) |>
-      filter(info %in% info_cols) |>
+      filter(.data$info %in% info_cols) |>
       pivot_wider(names_from = "info", values_from = "value")
 
 

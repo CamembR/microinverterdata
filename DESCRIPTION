@@ -22,6 +22,7 @@ Imports:
     dplyr,
     glue,
     httr2,
+    lubridate,
     purrr,
     readr,
     rlang,
@@ -31,7 +32,6 @@ RoxygenNote: 7.3.2
 Suggests: 
     httptest2,
     knitr,
-    lubridate,
     pins,
     rmarkdown,
     tibble,

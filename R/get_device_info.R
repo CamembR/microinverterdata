@@ -7,6 +7,7 @@
 #' @export
 #' @importFrom dplyr mutate across starts_with filter
 #' @importFrom tidyr pivot_longer separate_wider_regex pivot_wider
+#' @importFrom rlang .data
 #'
 #' @examples
 #' \dontrun{
@@ -22,7 +23,7 @@ get_device_info <- function(device_ip, model = "APSystems") {
       mutate(across(starts_with("X"), as.character)) |>
       pivot_longer(cols = starts_with("X")) |>
       separate_wider_regex("name", patterns = c(".", inverter = "\\d+",".", info = "\\D+$")) |>
-      filter(info %in% info_cols) |>
+      filter(.data$info %in% info_cols) |>
       pivot_wider(names_from = "info", values_from = "value") # |>
       # TODO need to filter out all empty rows
       # filter(across(info_cols), ~!is.na(.))
