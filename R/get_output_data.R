@@ -2,7 +2,7 @@
 #'
 #' @inheritParams get_device_info
 #' @param model the inverter device model. Currently only "APSystems"
-#'  "Enphase-Envoy-S" and "Fronius" are supported.
+#'  "Enphase-Envoy", "Enphase-Energy" and "Fronius" are supported.
 #' @param ... additional parameters passed to the inverter if needed.
 #'
 #' @return a dataframe with one row of device output power and energy per
@@ -34,11 +34,16 @@ get_output_data <- function(device_ip, model = "APSystems", ...) {
            across(ends_with("_energy"), \(x) set_units(x, "kW/h"))
     )
 
-  } else if (model == "Enphase-Envoy-S") {
-    out_tbl <- map_dfr(device_ip, ~query_enphaseenvoy_device(.x, "production/inverters/") |>
-      rename(output_power = "lastReportWatts", output_max_power = "maxReportWatts",
-             last_report = "lastReportDate"
-      ))
+  } else if (substr(model, 1, 13) == "Enphase-Envoy") {
+    out_tbl <- map_dfr(device_ip, ~query_enphaseenvoy_device(.x, "reports/production") |>
+      select(-reportType) |>
+      pivot_longer(!c(device_id, createdAt)) |>
+      separate_wider_regex(name, patterns = c(type = "^\\w+", ".", metric = "\\w+$")) |>
+      pivot_wider(names_from = "metric", values_from = "value")|>
+      rename(output_power = "apprntPwr", today_energy = "whRcvdCum",
+             lifetime_energy = "whDlvdCum", last_report = "createdAt") |>
+      select(device_id, last_report, type, contains("_"))
+      )
     mutate(out_tbl,
            last_report = as.POSIXct(.data$last_report),
            # TODO BUG may fail if not parsed as number

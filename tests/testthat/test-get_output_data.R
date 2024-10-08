@@ -41,6 +41,19 @@ with_mock_dir("enphase", {
     )
     expect_equal(nrow(enphase_data), 9L)
   })
+
+  test_that("get_output_data() works with one Enphase-Envoy device", {
+    skip_on_cran()
+    expect_error(
+      enphase_data <-  get_output_data(device_ip = "enphase.local", model = "Enphase-Envoy"),
+      NA)
+    expect_true(is.data.frame(enphase_data))
+    expect_equal(
+      names(enphase_data),
+      c("device_id", "last_report", "type",  "output_power", "lifetime_energy", "today_energy")
+    )
+    expect_equal(nrow(enphase_data), 2L)
+  })
 })
 
 with_mock_dir("fronius", {

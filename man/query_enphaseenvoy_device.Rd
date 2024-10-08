@@ -27,11 +27,11 @@ a data-frame with a `device_id` column and the `$Body$Data` turned into
    as many columns as expected
 }
 \description{
-as a port of https://github.com/mr-manuel/venus-os_dbus-enphase-envoy/tree/master#json-structure
+as a port of https://github.com/Matthew1471/Enphase-API/blob/main/Documentation/IQ Gateway API/IVP/Meters/Reports/Production.adoc
 }
 \examples{
 \dontrun{
-query_enphaseenvoy_device(query = "production/inverters/")
+query_enphaseenvoy_device(query = "reports/production")
 }
 }
 \seealso{
