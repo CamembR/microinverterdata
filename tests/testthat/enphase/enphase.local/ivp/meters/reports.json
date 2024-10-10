@@ -1,0 +1,110 @@
+[
+    {
+        "createdAt": 1686961552,
+        "reportType": "production",
+        "cumulative": {
+            "currW": 0.591,
+            "actPower": 0.591,
+            "apprntPwr": 254.555,
+            "reactPwr": 248.904,
+            "whDlvdCum": 2485013.732,
+            "whRcvdCum": 11887.499,
+            "varhLagCum": 795781.345,
+            "varhLeadCum": 0.398,
+            "vahCum": 3054493.114,
+            "rmsVoltage": 243.958,
+            "rmsCurrent": 1.043,
+            "pwrFactor": 0.0,
+            "freqHz": 50.12
+        },
+        "lines": [
+            {
+                "currW": 0.591,
+                "actPower": 0.591,
+                "apprntPwr": 254.555,
+                "reactPwr": 248.904,
+                "whDlvdCum": 2485013.732,
+                "whRcvdCum": 11887.499,
+                "varhLagCum": 795781.345,
+                "varhLeadCum": 0.398,
+                "vahCum": 3054493.114,
+                "rmsVoltage": 243.958,
+                "rmsCurrent": 1.043,
+                "pwrFactor": 0.0,
+                "freqHz": 50.12
+            }
+        ]
+    },
+    {
+        "createdAt": 1686961552,
+        "reportType": "net-consumption",
+        "cumulative": {
+            "currW": 434.245,
+            "actPower": 434.245,
+            "apprntPwr": 972.372,
+            "reactPwr": -792.063,
+            "whDlvdCum": 1749552.725,
+            "whRcvdCum": 1601637.637,
+            "varhLagCum": 17.665,
+            "varhLeadCum": 2831880.565,
+            "vahCum": 5069070.805,
+            "rmsVoltage": 243.888,
+            "rmsCurrent": 3.987,
+            "pwrFactor": 0.44,
+            "freqHz": 50.12
+        },
+        "lines": [
+            {
+                "currW": 434.245,
+                "actPower": 434.245,
+                "apprntPwr": 972.372,
+                "reactPwr": -792.063,
+                "whDlvdCum": 1749552.725,
+                "whRcvdCum": 1601637.637,
+                "varhLagCum": 17.665,
+                "varhLeadCum": 2831880.565,
+                "vahCum": 5069070.805,
+                "rmsVoltage": 243.888,
+                "rmsCurrent": 3.987,
+                "pwrFactor": 0.44,
+                "freqHz": 50.12
+            }
+        ]
+    },
+    {
+        "createdAt": 1686961552,
+        "reportType": "total-consumption",
+        "cumulative": {
+            "currW": 434.836,
+            "actPower": 434.836,
+            "apprntPwr": 1226.868,
+            "reactPwr": -1040.967,
+            "whDlvdCum": 2631392.206,
+            "whRcvdCum": 0.0,
+            "varhLagCum": 795799.01,
+            "varhLeadCum": 2831880.963,
+            "vahCum": 5069070.805,
+            "rmsVoltage": 243.923,
+            "rmsCurrent": 5.03,
+            "pwrFactor": 0.35,
+            "freqHz": 50.12
+        },
+        "lines": [
+            {
+                "currW": 434.836,
+                "actPower": 434.836,
+                "apprntPwr": 1226.868,
+                "reactPwr": -1040.967,
+                "whDlvdCum": 2631401.67,
+                "whRcvdCum": 0.0,
+                "varhLagCum": 795799.01,
+                "varhLeadCum": 2831880.963,
+                "vahCum": 5069070.805,
+                "rmsVoltage": 243.923,
+                "rmsCurrent": 5.03,
+                "pwrFactor": 0.35,
+                "freqHz": 50.12
+            }
+        ]
+    }
+]

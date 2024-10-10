@@ -79,7 +79,7 @@ query_ap_devices <- function(device_ip, query) {
 
 #' Enphase Envoy single device query
 #'
-#' as a port of https://github.com/mr-manuel/venus-os_dbus-enphase-envoy/tree/master#json-structure
+#' as a port of https://github.com/Matthew1471/Enphase-API/blob/main/Documentation/IQ Gateway API/IVP/Meters/Reports/Production.adoc
 #'
 #' @inheritParams query_ap_device
 #' @param username the username needed to authenticate to the inverter.
@@ -98,11 +98,11 @@ query_ap_devices <- function(device_ip, query) {
 #'
 #' @examples
 #' \dontrun{
-#' query_enphaseenvoy_device(query = "production/inverters/")
+#' query_enphaseenvoy_device(query = "reports/production")
 #' }
 query_enphaseenvoy_device <- function(device_ip = "enphase.local", query, username = Sys.getenv("ENPHASE_USERNAME"), password = Sys.getenv("ENPHASE_PASSWORD")) {
   check_device_ip(device_ip)
-  url <- glue::glue("http://{device_ip}/api/v1/{query}")
+  url <- glue::glue("http://{device_ip}/ivp/meters/{query}")
   req <- request(url) |> req_auth_basic(username, password)
   resp <- req |> req_perform()
   if (resp_is_error(resp)) {
@@ -111,13 +111,7 @@ query_enphaseenvoy_device <- function(device_ip = "enphase.local", query, userna
 
   } else {
     info_lst <- resp |> resp_body_json()
-
-    if (info_lst[["production"]][[1]][["activeCount"]] > 0) {
-      cbind(device_id = info_lst$serialNumber, as.data.frame(info_lst))
-    } else {
-      cli::cli_abort(c("the Enphase device {.var {device_ip}} does not have the ",
-                       "correct Metering setup, or is not supported"))
-    }
+    cbind(device_id = device_ip, as.data.frame(info_lst))
   }
 }
 

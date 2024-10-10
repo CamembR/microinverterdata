@@ -1,3 +1,7 @@
+# microinverterdata 0.1.4
+
+* Generalize Enphase Envoy support (`get_output_data()` only) #7
+
 # microinverterdata 0.1.3
 
 * Add support to Enphase Energy inverters (`get_output_data()` only) #6
