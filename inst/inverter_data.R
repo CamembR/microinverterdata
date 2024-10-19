@@ -15,4 +15,4 @@ board |> pins::pin_write(
   name = "inverter_data",
   versioned = TRUE
 )
-print(glue::glue("updated size : {nrow(rbind(history, new_data))}"))
+print(glue::glue("updated `inverter_data`: {nrow(rbind(history, new_data))} rows."))

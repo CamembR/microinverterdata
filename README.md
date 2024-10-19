@@ -63,11 +63,12 @@ and inverter internal alarms through `get_alarm()`.
 
 ## Inverter support and configuration
 
-The package here requires minimal version and configuration for the
-supported inverters :
+The package allow querying values on diverse device models through the `model = "..."` parameter.
 
-| Inverter Manufacturer | Inverter Model | Firmware version  | Configuration         |
-|-----------------------|----------------|-------------------|-----------------------|
+{microinverterdata} may require a minimal software version and configuration for the supported inverters :
+
+| Inverter Manufacturer | Inverter Model | Firmware version | Configuration |
+|------------------|------------------|------------------|------------------|
 | APSystems | EZ1 | ≥ 1.7.0 | [Continuous local mode](https://camembr.github.io/microinverterdata/articles/APSystems_devices.html) (off-cloud)|
 | Fronius | multiple | ≥ 1.7.2 | off-cloud (Need testers)          |
 | Enphase | Envoy-S  | D5.x.x  | off-cloud (Need testers)          |

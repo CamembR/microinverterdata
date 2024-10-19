@@ -56,9 +56,11 @@ get_output_data(device_ip = c("192.168.0.75", "192.168.0.186"))
 
 The packages also gives access to inverter information through `get_device_info()` and inverter internal alarms through `get_alarm()`.
 
-## Inverter support and configuration
+## Microinverter support and configuration
 
-The package here requires minimal version and configuration for the supported inverters :
+The package allow querying values on diverse device models through the `model = "..."` parameter.
+
+{microinverterdata} may require a minimal software version and configuration for the supported inverters :
 
 | Inverter Manufacturer | Inverter Model | Firmware version | Configuration |
 |------------------|------------------|------------------|------------------|
