@@ -1,3 +1,7 @@
+# microinverterdata 0.2.0
+
+* Polish description and README
+
 # microinverterdata 0.1.4
 
 * Generalize Enphase Envoy support (`get_output_data()` only) #7

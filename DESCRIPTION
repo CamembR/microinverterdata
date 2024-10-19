@@ -10,8 +10,8 @@ Authors@R: c(
            )
     )
 Description: Collect and normalize local microinverter energy and power production
-    data through off-cloud API requests. Currently supports 'APSystems' and 'Enphase'
-    microinverters.
+    data through off-cloud API requests. Currently supports 'APSystems', 'Enphase',
+    and 'Fronius' microinverters.
 License: MIT + file LICENSE
 BugReports: https://github.com/camembR/microinverterdata/issues
 URL: https://camembr.github.io/microinverterdata/
