@@ -56,13 +56,13 @@ with_mock_dir("enphase", {
   })
 })
 
-with_mock_dir("fronius", {
+with_mock_dir("f", {
   test_that("get_output_data() works with one Fronius device", {
     skip_on_cran()
     expect_error(
-      get_output_data(device_ip = "fronius.local", model = "Fronius"),
+      get_output_data(device_ip = "fronius", model = "Fronius"),
       NA)
-    fronius_data <-  get_output_data(device_ip = "fronius.local", model = "Fronius")
+    fronius_data <-  get_output_data(device_ip = "fronius", model = "Fronius")
     expect_true(is.data.frame(fronius_data))
     expect_equal(
       names(fronius_data),
@@ -74,9 +74,9 @@ with_mock_dir("fronius", {
   test_that("get_output_data() works with multiple devices from Fronius", {
     skip_on_cran()
     expect_error(
-      get_output_data(device_ip = c("fronius.local","fronius2.local"), model = "Fronius"),
+      get_output_data(device_ip = c("fronius","fronius2"), model = "Fronius"),
       NA)
-    fronius_data <-  get_output_data(device_ip = c("fronius.local","fronius2.local"), model = "Fronius")
+    fronius_data <-  get_output_data(device_ip = c("fronius","fronius2"), model = "Fronius")
     expect_true(is.data.frame(fronius_data))
     expect_equal(
       names(fronius_data),
