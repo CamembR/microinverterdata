@@ -1,6 +1,7 @@
 # microinverterdata 0.2.0
 
 * Polish description and README
+* Use a `switch()` based dispatch method on `model`
 
 # microinverterdata 0.1.4
 
