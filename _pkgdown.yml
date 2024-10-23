@@ -15,3 +15,5 @@ navbar:
     menu:
       - text: Setup APSystems devices
         href: articles/APSystems_devices.html
+      - text: Inverter data collection
+        href: articles/data_collection.html

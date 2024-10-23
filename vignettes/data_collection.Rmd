@@ -68,24 +68,34 @@ board |> pin_versions("inverter_data")
 
 ## All-in-one in a script
 
-As we know the dynamic behavior, we can move that to a R script and run it on a regular basis with system tools like crontab for linux : 
-
-```{bash}
-crontab -l
-```
+Now that we know the dynamic behavior, we can move that to a R script and run it on a regular basis with system tools 
  
-and you can use and edit the following file
+and you can use and edit the following file as a baseline
 ```{r}
 system.file("inverter_data.R", package = "microinverterdata")
 ```
 
-and setup (or remove) the environment variables required for the script to run, then put that script in the crontab 
-to run it every 30 min like in the following crontab entry
+and setup (or remove) the environment variables required for the script to run, 
+and finally save the modified script in an accessible folder.
+
+### MacOS / Linux platform
+
+The system tool `crontab` is the tool of choice for job scheduling on linux : 
+
+```{bash}
+crontab -l
+```
+Last step here is to configure the crontab 
+to run it every 30 min like in the following `crontab` entry
 
 ```
 # m h dom mon dow command
-0,30 * * * * R CMD BATCH inverter_data.R
+0,30 * * * * R CMD BATCH /path/of/modified/inverter_data.R
 ```
+### MS Windows platform
+
+Depending of your version, last step here is to configure the task scheduler or the powershell 
+`PSScheduledJob` to run it.
 
 
 ```{r, include=FALSE}
