@@ -13,5 +13,9 @@
 <url><loc>https://camembr.github.io/microinverterdata/dev/reference/index.html</loc></url>
 <url><loc>https://camembr.github.io/microinverterdata/dev/reference/query_ap_device.html</loc></url>
 <url><loc>https://camembr.github.io/microinverterdata/dev/reference/query_ap_devices.html</loc></url>
+<url><loc>https://camembr.github.io/microinverterdata/dev/reference/query_enphaseenergy_device.html</loc></url>
+<url><loc>https://camembr.github.io/microinverterdata/dev/reference/query_enphaseenvoy_device.html</loc></url>
+<url><loc>https://camembr.github.io/microinverterdata/dev/reference/query_fronius_device.html</loc></url>
+<url><loc>https://camembr.github.io/microinverterdata/dev/reference/query_fronius_devices.html</loc></url>
 </urlset>
 

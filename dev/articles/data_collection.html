@@ -21,7 +21,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">microinverterdata</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.1.0.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">0.2.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,17 +30,18 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/APSystems_devices.html">Setup APSystems devices</a></li>
+    <li><a class="dropdown-item" href="../articles/data_collection.html">Inverter data collection</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/camembR/microinverterdata/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/CamembR/microinverterdata/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -57,7 +58,7 @@
       <h1>data_collection</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/camembR/microinverterdata/blob/main/vignettes/data_collection.Rmd" class="external-link"><code>vignettes/data_collection.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/CamembR/microinverterdata/blob/main/vignettes/data_collection.Rmd" class="external-link"><code>vignettes/data_collection.Rmd</code></a></small>
       <div class="d-none name"><code>data_collection.Rmd</code></div>
     </div>
 
@@ -109,17 +110,31 @@ can choose the most simpler board to be the local board</li>
 <div class="section level3">
 <h3 id="all-in-one-in-a-script">All-in-one in a script<a class="anchor" aria-label="anchor" href="#all-in-one-in-a-script"></a>
 </h3>
-<p>As we know the dynamic behavior, we can move that to a R script and
-run it on a regular basis with system tools like crontab for linux :</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">crontab</span> <span class="at">-l</span></span></code></pre></div>
-<p>and you can use and edit the following file</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>Now that we know the dynamic behavior, we can move that to a R script
+and run it on a regular basis with system tools</p>
+<p>and you can use and edit the following file as a baseline</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"inverter_data.R"</span>, package <span class="op">=</span> <span class="st">"microinverterdata"</span><span class="op">)</span></span></code></pre></div>
 <p>and setup (or remove) the environment variables required for the
-script to run, then put that script in the crontab to run it every 30
-min like in the following crontab entry</p>
+script to run, and finally save the modified script in an accessible
+folder.</p>
+<div class="section level4">
+<h4 id="macos-linux-platform">MacOS / Linux platform<a class="anchor" aria-label="anchor" href="#macos-linux-platform"></a>
+</h4>
+<p>The system tool <code>crontab</code> is the tool of choice for job
+scheduling on linux :</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">crontab</span> <span class="at">-l</span></span></code></pre></div>
+<p>Last step here is to configure the crontab to run it every 30 min
+like in the following <code>crontab</code> entry</p>
 <pre><code># m h dom mon dow command
-0,30 * * * * R CMD BATCH inverter_data.R</code></pre>
+0,30 * * * * R CMD BATCH /path/of/modified/inverter_data.R</code></pre>
+</div>
+<div class="section level4">
+<h4 id="ms-windows-platform">MS Windows platform<a class="anchor" aria-label="anchor" href="#ms-windows-platform"></a>
+</h4>
+<p>Depending of your version, last step here is to configure the task
+scheduler or the powershell <code>PSScheduledJob</code> to run it.</p>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
