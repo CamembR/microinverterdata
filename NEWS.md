@@ -1,4 +1,6 @@
-# microinverterdata (development version)
+# microinverterdata 0.2.1
+
+* switch to parallel requests
 
 # microinverterdata 0.2.0
 

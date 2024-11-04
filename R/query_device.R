@@ -42,9 +42,9 @@ query_ap_device <- function(device_ip, query) {
 #' @family device queries
 #'
 #' @export
-#' @importFrom httr2 request response req_perform resp_is_error
+#' @importFrom httr2 request response req_perform_parallel resp_is_error
 #' @importFrom httr2 resp_body_json resp_status resp_status_desc
-#' @importFrom purrr map map_lgl map_dfr possibly walk
+#' @importFrom purrr map map_lgl map_dfr walk
 #'
 #' @examples
 #' \dontrun{
@@ -54,10 +54,8 @@ query_ap_device <- function(device_ip, query) {
 #' }
 query_ap_devices <- function(device_ip, query) {
   walk(device_ip, check_device_ip)
-  url <- glue::glue("http://{unique(device_ip)}:8050/{query}")
-  resp <- map(url, possibly(~.x |> request() |> req_perform(error_call = rlang::caller_env()),
-                            otherwise = response(504))
-  )
+  req_url <- lapply(unique(device_ip), function(x) request(paste0("http://",x,":8050/",query)))
+  resp <- req_url |> req_perform_parallel(on_error = "continue")
   response_is_error <- map_lgl(resp, resp_is_error)
 
   if (all(response_is_error)) {
@@ -213,9 +211,9 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
 #' @family device queries
 #'
 #' @export
-#' @importFrom httr2 request response req_perform resp_is_error
+#' @importFrom httr2 request response req_perform_parallel resp_is_error
 #' @importFrom httr2 resp_body_json resp_status resp_status_desc
-#' @importFrom purrr map map_lgl map_dfr map2_dfr possibly walk
+#' @importFrom purrr map map_lgl map_dfr map2_dfr walk
 #'
 #'
 #' @examples
@@ -224,10 +222,9 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
 #' }
 query_fronius_devices <- function(device_ip = c("fronius.local"), query, username = Sys.getenv("FRONIUS_USERNAME"), password = Sys.getenv("FRONIUS_PASSWORD")) {
   walk(device_ip, check_device_ip)
-  url <- glue::glue("http://{device_ip}/solar_api/v1/{query}")
-  resp <- map(url, possibly(~.x |> request() |> req_perform(error_call = rlang::caller_env()),
-                            otherwise = response(504))
-  )
+  req_url <- lapply(unique(device_ip), function(x) paste0("http://",x,"/solar_api/v1/",query) |> request() |> req_auth_basic(username, password))
+  resp <- req_url |> req_perform_parallel(on_error = "continue")
+
   response_is_error <- map_lgl(resp, resp_is_error)
   if (all(response_is_error)) {
     cli::cli_abort("Connection to all devices raised an error.")
