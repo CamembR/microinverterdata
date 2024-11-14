@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/CamembR/microinverterdata/actions/workflows/R-CMD-check.yaml)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/microinverterdata)](https://CRAN.R-project.org/package=microinverterdata)
 [![](https://cranlogs.r-pkg.org/badges/microinverterdata)](https://cran.r-project.org/package=microinverterdata)
@@ -15,6 +17,12 @@ The goal of microinverterdata is to provide access to your local
 micro-inverter data.
 
 ## Installation
+
+You can install the released version from CRAN with:
+
+``` r
+install.packages("microinverterdata")
+```
 
 You can install the development version of {microinverterdata} from
 [GitHub](https://github.com/) with:
