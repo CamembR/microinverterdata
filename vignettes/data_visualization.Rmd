@@ -1,0 +1,98 @@
+---
+title: "Local Data Visualization"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Local Data Visualization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(tsibble, warn.conflicts = FALSE)
+library(pins)
+library(dplyr, warn.conflicts = FALSE)
+library(imputeTS, warn.conflicts = FALSE)
+library(ggplot2)
+```
+
+# Data Visualization
+
+The collected values from the vignette [Local Data Collection](data_collection.html) may be nicely visualized, but require a bit of pre-processing and formatting.
+
+## Recall pinned dataset
+
+After some time of background data collection, it is now time to recall the collected data and bring them to the light.
+
+```{r}
+library(pins)
+board <- board_local()
+inverter_df <- board |>
+  pin_read("inverter_data")
+head(inverter_df)
+```
+
+## Convert into time-series
+
+We now turn the tibble into a tsibble time-series, in order to be able to use time-series specific functions.
+
+The time-series is chosen to be **regular on the 30 minutes interval**, and we temporarily remove the units that are not yet {tsibble} friendly. We use `fill_gaps()` to make an explicit index entry in the time series, whenever data exists.
+
+```{r, convert to time-serie}
+inverter_ts <- inverter_df |> 
+  mutate(time_index = date |> lubridate::floor_date(unit = "30 minutes"),
+         device_inverter = stringr::str_c(device_id, "_", inverter)) |>
+  summarize(.by = c(time_index, device_id, inverter, device_inverter), lifetime_energy = max(lifetime_energy), today_energy = max(today_energy), output_power = mean(output_power)) |> 
+  units::drop_units() |> 
+  # convert to time-series
+  as_tsibble(key = c(device_id, inverter, device_inverter) ,index = time_index ) |> 
+  # explicit gaps
+  fill_gaps() 
+
+head(inverter_ts)
+```
+
+Oh, the size of the filled gap tsibble is large, so we realize we have only `r round((nrow(inverter_df)/nrow(inverter_ts)*100))`% of completeness in the data. This will require us a strong effort in imputation.
+
+## Naive imputation
+
+`lifetime_energy` is a monotonic series, and thus is correctly imputed with a linear interpolation.\
+We start with a naive imputation of `today_energy` series being the delta between two steps of `lifetime_energy`.
+
+Despite being globally correct, it is far from being representative of the daily seasonality of photo-voltaic energy production.
+
+```{r, imputation}
+full_inverter <- inverter_ts |> 
+  # impute 'lifetime_energy' gaps with a linear interpolation 
+  mutate(lifetime_energy = na_interpolation(lifetime_energy, option = "linear"),
+         today_energy = if_else(inverter == lag(inverter), coalesce(today_energy, lifetime_energy - lag(lifetime_energy)), today_energy)
+  )
+```
+
+## Gaps visualization
+
+{imputeTS} provides a good toolset to visualize the imputed values in the time-series :
+
+```{r}
+ggplot_na_imputations(x_with_na = inverter_ts$lifetime_energy,
+                      x_with_imputations = full_inverter$lifetime_energy,
+                      ylab = "Total energy [kWh]",
+                      size_imputations = 0.2,
+                      size_points = 0.6
+                      )
+ggplot_na_imputations(x_with_na = inverter_ts$today_energy,
+                      x_with_imputations =full_inverter$today_energy,
+                      ylab = "Daily energy [kWh]",
+                      size_imputations = 0.2,
+                      size_points = 0.6)
+```
+
+## Conclusion
+
+Much better imputation can be done of course form this very challenging dataset. As everybody knows, we have the intuition of a daily seasonality being modulated by the local solar radiation. Up to you now to dig into it !
