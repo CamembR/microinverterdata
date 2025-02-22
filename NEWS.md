@@ -1,5 +1,7 @@
 # microinverterdata (development version)
 
+* Add `Local Data Visualization` vignette.
+
 # microinverterdata 0.2.0
 
 * Polish description and README
