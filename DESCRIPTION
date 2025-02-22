@@ -21,7 +21,7 @@ Imports:
     cli,
     dplyr,
     glue,
-    httr2,
+    httr2 (>= 1.0.0),
     lubridate,
     purrr,
     readr,
@@ -35,6 +35,8 @@ Suggests:
     pins,
     rmarkdown,
     tibble,
+    tsibble,
+    imputeTS,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
