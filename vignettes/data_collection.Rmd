@@ -1,8 +1,8 @@
 ---
-title: "data_collection"
+title: "Local Data Collection"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{data_collection}
+  %\VignetteIndexEntry{Local Data Collection}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   purl = FALSE
 )
 library(httptest2)
-start_vignette("data_collection")
+start_vignette("Local Data Collection")
 ```
 
 ```{r setup}
