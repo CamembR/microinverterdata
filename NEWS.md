@@ -1,6 +1,9 @@
 # microinverterdata (development version)
 
+# microinverterdata 0.2.1
+
 * Add `Local Data Visualization` vignette. #13
+* Improve device_ip check. #13
 
 # microinverterdata 0.2.0
 
