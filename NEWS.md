@@ -2,6 +2,8 @@
 
 * switch to parallel requests
 
+* Add `Local Data Visualization` vignette. #13
+
 # microinverterdata 0.2.0
 
 * Polish description and README
