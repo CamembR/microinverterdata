@@ -1,5 +1,3 @@
-# microinverterdata (development version)
-
 # microinverterdata 0.2.1
 
 * Add `Local Data Visualization` vignette. #13
