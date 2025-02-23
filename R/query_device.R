@@ -21,7 +21,7 @@ query_ap_device <- function(device_ip, query) {
   check_device_ip(device_ip)
   url <- glue::glue("http://{device_ip}:8050/{query}")
   req <- request(url)
-  resp <- req |> req_perform()
+  resp <- req |> reg_perform_parallel()
   if (resp_is_error(resp)) {
     cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
@@ -106,7 +106,7 @@ query_enphaseenvoy_device <- function(device_ip = "enphase.local", query, userna
   check_device_ip(device_ip)
   url <- glue::glue("http://{device_ip}/ivp/meters/{query}")
   req <- request(url) |> req_auth_basic(username, password)
-  resp <- req |> req_perform()
+  resp <- req |> reg_perform_parallel()
   if (resp_is_error(resp)) {
     cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
@@ -144,7 +144,7 @@ query_enphaseenergy_device <- function(device_ip = "enphase.local", query, usern
   check_device_ip(device_ip)
   url <- glue::glue("http://{device_ip}/{query}")
   req <- request(url) |> req_auth_basic(username, password)
-  resp <- req |> req_perform()
+  resp <- req |> reg_perform_parallel()
   if (resp_is_error(resp)) {
     cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
@@ -188,7 +188,7 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
   check_device_ip(device_ip)
   url <- glue::glue("http://{device_ip}/solar_api/v1/{query}")
   req <- request(url) |> req_auth_basic(username, password)
-  resp <- req |> req_perform()
+  resp <- req |> reg_perform_parallel()
   if (resp_is_error(resp)) {
     cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
