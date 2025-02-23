@@ -4,7 +4,8 @@ pkgdown_sha: ~
 articles:
   APSystems_devices: APSystems_devices.html
   data_collection: data_collection.html
-last_built: 2024-10-25T17:47Z
+  data_visualization: data_visualization.html
+last_built: 2025-02-23T17:07Z
 urls:
   reference: https://camembr.github.io/microinverterdata/reference
   article: https://camembr.github.io/microinverterdata/articles
