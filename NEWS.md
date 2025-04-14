@@ -1,8 +1,6 @@
-# microinverterdata 0.2.1
+# microinverterdata (development version)
 
-* switch to parallel requests
-
-* Add `Local Data Visualization` vignette. #13
+* now perform requests to multiple devices in parallel (AP System & Fronius)
 
 # microinverterdata 0.2.0
 

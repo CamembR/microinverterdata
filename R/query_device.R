@@ -21,7 +21,7 @@ query_ap_device <- function(device_ip, query) {
   check_device_ip(device_ip)
   url <- glue::glue("http://{device_ip}:8050/{query}")
   req <- request(url)
-  resp <- req |> reg_perform_parallel()
+  resp <- req |> req_perform()
   if (resp_is_error(resp)) {
     cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
@@ -46,7 +46,7 @@ query_ap_device <- function(device_ip, query) {
 #' @family device queries
 #'
 #' @export
-#' @importFrom httr2 request response req_perform_parallel
+#' @importFrom httr2 request response
 #' @importFrom httr2 resp_body_json resp_status resp_status_desc
 #' @importFrom purrr map map_lgl map_dfr walk
 #'
@@ -59,7 +59,7 @@ query_ap_device <- function(device_ip, query) {
 query_ap_devices <- function(device_ip, query) {
   walk(device_ip, check_device_ip)
   req_url <- lapply(unique(device_ip), function(x) request(paste0("http://",x,":8050/",query)))
-  resp <- req_url |> req_perform_parallel(on_error = "continue")
+  resp <- req_url |> .req_perform_parallel(on_error = "continue")
   response_is_error <- map_lgl(resp, inherits, "httr2_failure")
 
   if (all(response_is_error)) {
@@ -106,7 +106,7 @@ query_enphaseenvoy_device <- function(device_ip = "enphase.local", query, userna
   check_device_ip(device_ip)
   url <- glue::glue("http://{device_ip}/ivp/meters/{query}")
   req <- request(url) |> req_auth_basic(username, password)
-  resp <- req |> reg_perform_parallel()
+  resp <- req |> req_perform()
   if (resp_is_error(resp)) {
     cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
@@ -144,7 +144,7 @@ query_enphaseenergy_device <- function(device_ip = "enphase.local", query, usern
   check_device_ip(device_ip)
   url <- glue::glue("http://{device_ip}/{query}")
   req <- request(url) |> req_auth_basic(username, password)
-  resp <- req |> reg_perform_parallel()
+  resp <- req |> req_perform()
   if (resp_is_error(resp)) {
     cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
@@ -188,7 +188,7 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
   check_device_ip(device_ip)
   url <- glue::glue("http://{device_ip}/solar_api/v1/{query}")
   req <- request(url) |> req_auth_basic(username, password)
-  resp <- req |> reg_perform_parallel()
+  resp <- req |> req_performl()
   if (resp_is_error(resp)) {
     cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
@@ -221,7 +221,7 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
 #' @family device queries
 #'
 #' @export
-#' @importFrom httr2 request response req_perform_parallel
+#' @importFrom httr2 request response
 #' @importFrom httr2 resp_body_json resp_status resp_status_desc
 #' @importFrom purrr map map_lgl map_dfr map2_dfr walk
 #'
@@ -233,7 +233,7 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
 query_fronius_devices <- function(device_ip = c("fronius.local"), query, username = Sys.getenv("FRONIUS_USERNAME"), password = Sys.getenv("FRONIUS_PASSWORD")) {
   walk(device_ip, check_device_ip)
   req_url <- lapply(unique(device_ip), function(x) paste0("http://",x,"/solar_api/v1/",query) |> request() |> req_auth_basic(username, password))
-  resp <- req_url |> req_perform_parallel(on_error = "continue")
+  resp <- req_url |> .req_perform_parallel(on_error = "continue")
 
   response_is_error <- map_lgl(resp, inherits, "httr2_failure")
   if (all(response_is_error)) {
@@ -274,3 +274,7 @@ check_device_ip <- function(device_ip) {
   stopifnot("device_ip shall be a valid .local, IPv4 or IPv6 address" = grepl(ipv4_regex, device_ip) || grepl(ipv6_regex, device_ip) || grepl(local_regex, device_ip))
 }
 
+.req_perform_parallel <- function(requests, ...) {
+  httr2::req_perform_parallel(requests, ...)
+
+}
