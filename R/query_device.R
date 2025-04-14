@@ -261,7 +261,7 @@ query_fronius_devices <- function(device_ip = c("fronius.local"), query, usernam
 }
 
 check_device_ip <- function(device_ip) {
-  stopifnot("device_ip shall be an atomic character string" = length(device_ip) == 1)
+  stopifnot("device_ip shall be an atomic character string" = is.atomic(device_ip))
   stopifnot("device_ip shall be of a minimal character length" = nchar(device_ip) >= 3)
 
   # Regular expression to match a valid IPv4 address
