@@ -1,9 +1,7 @@
-local_mocked_bindings(check_device_ip = function(device_ip) {
-  if (rlang::enexpr(device_ip) %in% c("apsystems_host", "apsystems_multi", "f", "g")) {
-    return
-  }
-})
 
+local_mocked_bindings(.req_perform_parallel = function(requests, ...) {
+  lapply(requests, httr2::req_perform)
+})
 
 with_mocked_bindings(
   with_mock_dir("apsystems", {
