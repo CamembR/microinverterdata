@@ -1,6 +1,7 @@
 # microinverterdata (development version)
 
 * now perform requests to multiple devices in parallel (AP System & Fronius)
+* make device IP / name validation stronger.
 
 # microinverterdata 0.2.1
 

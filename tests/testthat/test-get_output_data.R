@@ -4,7 +4,7 @@ local_mocked_bindings(.req_perform_parallel = function(requests, ...) {
 })
 
 local_mocked_bindings(check_device_ip = function(device_ip) {
-  if (rlang::enexpr(device_ip) %in% c("apsystems_host", "apsystems_multi")) {
+  if (rlang::enexpr(device_ip) %in% c("apsystems_host", "apsystems_multi", "f", "g")) {
     return
   } else {
     stopifnot("**device_ip** shall be an atomic character string" = is.atomic(device_ip))
@@ -85,7 +85,7 @@ with_mock_dir("f", {
   test_that("get_output_data() works with one Fronius device", {
     skip_on_cran()
     expect_no_error(
-      get_output_data(device_ip = "fronius", model = "Fronius")
+      get_output_data(device_ip = "f.local", model = "Fronius")
       )
     fronius_data <-  get_output_data(device_ip = "f.local", model = "Fronius")
     expect_true(is.data.frame(fronius_data))
