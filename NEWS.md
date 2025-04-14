@@ -1,3 +1,5 @@
+# microinverterdata (development version)
+
 # microinverterdata 0.3.0
 
 * now perform requests to multiple devices in parallel (AP System & Fronius). #14
