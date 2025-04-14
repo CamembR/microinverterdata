@@ -1,9 +1,9 @@
 with_mock_dir("apsystems", {
   test_that("get_alarm() works with a single device from APSystems", {
     skip_on_cran()
-    expect_error(
-      get_alarm(apsystems_host),
-      NA)
+    expect_no_error(
+      get_alarm(apsystems_host)
+      )
     apsystem_alarm <-  get_alarm(apsystems_host)
     expect_true(is.data.frame(apsystem_alarm))
     expect_equal(
@@ -15,9 +15,9 @@ with_mock_dir("apsystems", {
 
   test_that("get_alarm() works with multiple devices from APSystems", {
     skip_on_cran()
-    expect_error(
-      get_alarm(apsystems_multi),
-      NA)
+    expect_no_error(
+      get_alarm(apsystems_multi)
+      )
     apsystem_alarm <-  get_alarm(apsystems_multi)
     expect_true(is.data.frame(apsystem_alarm))
     expect_equal(

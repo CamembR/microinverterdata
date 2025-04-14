@@ -2,9 +2,9 @@ with_mock_dir("apsystems", {
 
     test_that("get_device_info() works with a single device from APSystems", {
     skip_on_cran()
-    expect_error(
-      apsystem_info <- get_device_info(apsystems_host),
-      NA)
+    expect_no_error(
+      apsystem_info <- get_device_info(apsystems_host)
+      )
     expect_true(is.data.frame(apsystem_info))
     expect_equal(
       names(apsystem_info),
@@ -15,9 +15,9 @@ with_mock_dir("apsystems", {
 
   test_that("get_device_info() works with multiple devices from APSystems", {
     skip_on_cran()
-    expect_error(
-      apsystem_info <-  get_device_info(apsystems_multi),
-      NA)
+    expect_no_error(
+      apsystem_info <-  get_device_info(apsystems_multi)
+      )
     expect_true(is.data.frame(apsystem_info))
     expect_equal(
       names(apsystem_info),
