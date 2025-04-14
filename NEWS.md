@@ -1,7 +1,8 @@
 # microinverterdata 0.3.0
 
-* now perform requests to multiple devices in parallel (AP System & Fronius)
+* now perform requests to multiple devices in parallel (AP System & Fronius). #14
 * device IP / name validation is now stricter.
+* remove lubridate and readr dependancy.
 
 # microinverterdata 0.2.1
 
