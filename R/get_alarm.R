@@ -25,7 +25,7 @@ get_alarm <- function(device_ip, model = "APSystems") {
 # Method for APSystems model
 get_alarm_APSystems <- function(device_ip) {
   query_ap_devices(device_ip, "getAlarm") |>
-    dplyr::mutate_at(2:5, \(x) readr::parse_integer(x)) |>
+    dplyr::mutate_at(2:5, \(x) parse_integer(x)) |>
     dplyr::rename(
       off_grid = "og", dc_input_1_shot_circuit = "isce1",
       non_operating = "oe", dc_input_2_shot_circuit = "isce2",
@@ -49,4 +49,14 @@ get_alarm_default <- function(model) {
                    cli::style_hyperlink("issue", "https://github.com/CamembR/microinverterdata/issues/new/choose"),
                    "to get support")
   )
+}
+
+parse_integer <- function(x, name = deparse(substitute(x))) {
+  # Check if input is character vector
+  if (!is.character(x)) {
+    cli::cli_abort("column {.var name} in API response should be a character vector")
+  }
+
+  # Trim whitespace and convert to integer
+  as.integer(trimws(x))
 }
