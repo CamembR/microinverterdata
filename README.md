@@ -51,7 +51,7 @@ get_output_data(device_ip = "192.168.0.75")
 The single device here includes 2 separated inverters. We get one row
 of data per inverter, i.e. per solar panel.
 
-You can also use a vector of IP adresses for `device_ip`. Thus the
+You can also use a vector of IP addresses for `device_ip`. Thus the
 command would run on all the inverters
 
 ``` r
