@@ -3,54 +3,40 @@ local_mocked_bindings(.req_perform_parallel = function(requests, ...) {
   lapply(requests, httr2::req_perform)
 })
 
-local_mocked_bindings(check_device_ip = function(device_ip) {
-  if (rlang::enexpr(device_ip) %in% c("apsystems_host", "apsystems_multi", "f", "g")) {
+with_mocked_bindings(
+  with_mock_dir("apsystems", {
+    test_that("get_output_data() works with one APSystems device", {
+      skip_on_cran()
+      expect_error(
+        get_output_data(apsystems_host),
+        NA)
+      apsystem_data <-  get_output_data(apsystems_host)
+      expect_true(is.data.frame(apsystem_data))
+      expect_equal(
+        names(apsystem_data),
+        c("device_id", "inverter", "output_power", "today_energy", "lifetime_energy")
+      )
+      expect_equal(nrow(apsystem_data), 2L)
+    })
+
+    test_that("get_output_data() works with multiple devices from APSystems", {
+      skip_on_cran()
+      expect_error(
+        get_output_data(apsystems_multi),
+        NA)
+      apsystem_data <-  get_output_data(apsystems_multi)
+      expect_true(is.data.frame(apsystem_data))
+      expect_equal(
+        names(apsystem_data),
+        c("device_id", "inverter", "output_power", "today_energy", "lifetime_energy")
+      )
+      expect_equal(nrow(apsystem_data), 4L)
+    })
+  }),
+  check_device_ip = function(device_ip) {
+  if (rlang::enexpr(device_ip) %in% c("apsystems_host", "apsystems_multi")) {
     return
-  } else {
-    stopifnot("**device_ip** shall be an atomic character string" = is.atomic(device_ip))
-    stopifnot("**device_ip** shall be of a minimal character length" = nchar(device_ip) >= 3)
-
-    # Regular expression to match a valid IPv4 address
-    ipv4_regex <- "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
-    # Regular expression to match a valid IPv6 address
-    ipv6_regex <- "^[0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4}){7}$"
-    # Regular expression to match a .local domain resolution
-    local_regex <- "\\.local$"
-
-    stopifnot("**device_ip** shall be a valid .local, IPv4 or IPv6 address" = grepl(ipv4_regex, device_ip) || grepl(ipv6_regex, device_ip) || grepl(local_regex, device_ip))
-
   }
-})
-
-
-with_mock_dir("apsystems", {
-  test_that("get_output_data() works with one APSystems device", {
-    skip_on_cran()
-    expect_error(
-      get_output_data(apsystems_host),
-      NA)
-    apsystem_data <-  get_output_data(apsystems_host)
-    expect_true(is.data.frame(apsystem_data))
-    expect_equal(
-      names(apsystem_data),
-      c("device_id", "inverter", "output_power", "today_energy", "lifetime_energy")
-    )
-    expect_equal(nrow(apsystem_data), 2L)
-  })
-
-  test_that("get_output_data() works with multiple devices from APSystems", {
-    skip_on_cran()
-    expect_error(
-      get_output_data(apsystems_multi),
-      NA)
-    apsystem_data <-  get_output_data(apsystems_multi)
-    expect_true(is.data.frame(apsystem_data))
-    expect_equal(
-      names(apsystem_data),
-      c("device_id", "inverter", "output_power", "today_energy", "lifetime_energy")
-    )
-    expect_equal(nrow(apsystem_data), 4L)
-  })
 })
 
 with_mock_dir("enphase", {
@@ -110,7 +96,6 @@ with_mock_dir("f", {
     expect_equal(nrow(fronius_data), 2L)
   })
 })
-
 
 test_that("get_output_data() raise an explicit message for unsupported model", {
   expect_error(

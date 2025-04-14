@@ -1,3 +1,10 @@
+local_mocked_bindings(check_device_ip = function(device_ip) {
+  if (rlang::enexpr(device_ip) %in% c("apsystems_host", "apsystems_multi", "f", "g")) {
+    return
+  }
+})
+
+
 with_mock_dir("apsystems", {
   test_that("get_alarm() works with a single device from APSystems", {
     skip_on_cran()
