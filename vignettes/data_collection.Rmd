@@ -38,7 +38,7 @@ library(pins)
 board <- board_local()
 if (!"inverter_data" %in% pin_list(board)) {
   initial_data <- tibble::tibble(
-    date = lubridate::now(), get_output_data(c("192.168.0.175"))
+    date = Sys.time(), get_output_data(c("192.168.0.175"))
     )
   board |> pin_write(initial_data, name = "inverter_data", versioned = TRUE)
 }
@@ -55,7 +55,7 @@ history <- board |> pin_read("inverter_data")
 
 ```{r}
 new_data <- tibble::tibble(
-  date = lubridate::now(), get_output_data(c("192.168.0.175"))
+  date = Sys.time(), get_output_data(c("192.168.0.175"))
   )
 board |> pin_write(rbind(history, new_data), name = "inverter_data", versioned = TRUE)
 

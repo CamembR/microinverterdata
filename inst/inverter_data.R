@@ -7,7 +7,7 @@ history <- board |> pins::pin_read("inverter_data")
 print(glue::glue("history size : {nrow(history)}"))
 device_ip = c(Sys.getenv("APSYSTEMS_HOST1"), Sys.getenv("APSYSTEMS_HOST2"))
 new_data <- tibble::tibble(
-  date = lubridate::now(),
+  date = Sys.time(),
   microinverterdata::get_output_data(device_ip = device_ip)
 )
 board |> pins::pin_write(

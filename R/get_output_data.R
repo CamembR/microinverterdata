@@ -17,7 +17,6 @@
 #' @importFrom dplyr mutate across ends_with rename select everything
 #' @importFrom tidyr pivot_longer separate_wider_regex pivot_wider
 #' @importFrom purrr map_dfr
-#' @importFrom lubridate now
 #' @importFrom units set_units
 #' @importFrom rlang .data
 #'
@@ -78,7 +77,7 @@ get_output_data_Enphase_Energy <- function(device_ip) {
   )
 
   out_tbl <- mutate(out_tbl,
-                    last_report = now(),
+                    last_report = Sys.time(),
                     across(ends_with("power"), \(x) set_units(x, "W")),
                     across(ends_with("voltage"), \(x) set_units(x, "V")),
                     across(ends_with("current"), \(x) set_units(x, "A"))
