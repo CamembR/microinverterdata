@@ -25,6 +25,10 @@ query_ap_device <- function(device_ip, query) {
   if (resp_is_error(resp)) {
     cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
+
+  } else if (inherits(resp, "httr2_failure")) {
+    cli::cli_abort(resp$message)
+
   } else {
     info_lst <- resp |> resp_body_json()
     cbind(device_id = info_lst$deviceId, as.data.frame(info_lst$data))
@@ -42,9 +46,9 @@ query_ap_device <- function(device_ip, query) {
 #' @family device queries
 #'
 #' @export
-#' @importFrom httr2 request response req_perform resp_is_error
+#' @importFrom httr2 request response
 #' @importFrom httr2 resp_body_json resp_status resp_status_desc
-#' @importFrom purrr map map_lgl map_dfr possibly walk
+#' @importFrom purrr map map_lgl map_dfr walk
 #'
 #' @examples
 #' \dontrun{
@@ -54,11 +58,9 @@ query_ap_device <- function(device_ip, query) {
 #' }
 query_ap_devices <- function(device_ip, query) {
   walk(device_ip, check_device_ip)
-  url <- glue::glue("http://{unique(device_ip)}:8050/{query}")
-  resp <- map(url, possibly(~.x |> request() |> req_perform(error_call = rlang::caller_env()),
-                            otherwise = response(504))
-  )
-  response_is_error <- map_lgl(resp, resp_is_error)
+  req_url <- lapply(unique(device_ip), function(x) request(paste0("http://",x,":8050/",query)))
+  resp <- req_url |> .req_perform_parallel(on_error = "continue")
+  response_is_error <- map_lgl(resp, inherits, "httr2_failure")
 
   if (all(response_is_error)) {
     cli::cli_abort("Connection to all devices raised an error.")
@@ -108,6 +110,9 @@ query_enphaseenvoy_device <- function(device_ip = "enphase.local", query, userna
   if (resp_is_error(resp)) {
     cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
+
+  } else if (inherits(resp, "httr2_failure")) {
+    cli::cli_abort(resp$message)
 
   } else {
     info_lst <- resp |> resp_body_json()
@@ -188,6 +193,9 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
     cli::cli_abort(c("Connection to device {.var {device_ip}} raise an error : ",
                      "{resp_status(resp)} {resp_status_desc(resp)}."))
 
+  } else if (inherits(resp, "httr2_failure")) {
+    cli::cli_abort(resp$message)
+
   } else {
     info_lst <- resp |> resp_body_json()
 
@@ -213,9 +221,9 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
 #' @family device queries
 #'
 #' @export
-#' @importFrom httr2 request response req_perform resp_is_error
+#' @importFrom httr2 request response
 #' @importFrom httr2 resp_body_json resp_status resp_status_desc
-#' @importFrom purrr map map_lgl map_dfr map2_dfr possibly walk
+#' @importFrom purrr map map_lgl map_dfr map2_dfr walk
 #'
 #'
 #' @examples
@@ -224,11 +232,10 @@ query_fronius_device <- function(device_ip = "fronius.local", query, username = 
 #' }
 query_fronius_devices <- function(device_ip = c("fronius.local"), query, username = Sys.getenv("FRONIUS_USERNAME"), password = Sys.getenv("FRONIUS_PASSWORD")) {
   walk(device_ip, check_device_ip)
-  url <- glue::glue("http://{device_ip}/solar_api/v1/{query}")
-  resp <- map(url, possibly(~.x |> request() |> req_perform(error_call = rlang::caller_env()),
-                            otherwise = response(504))
-  )
-  response_is_error <- map_lgl(resp, resp_is_error)
+  req_url <- lapply(unique(device_ip), function(x) paste0("http://",x,"/solar_api/v1/",query) |> request() |> req_auth_basic(username, password))
+  resp <- req_url |> .req_perform_parallel(on_error = "continue")
+
+  response_is_error <- map_lgl(resp, inherits, "httr2_failure")
   if (all(response_is_error)) {
     cli::cli_abort("Connection to all devices raised an error.")
   }
@@ -254,8 +261,20 @@ query_fronius_devices <- function(device_ip = c("fronius.local"), query, usernam
 }
 
 check_device_ip <- function(device_ip) {
-  stopifnot("device_IP shall be an atomic character string" = length(device_ip) == 1)
-  stopifnot("device_IP shall be of a minimal character length" = nchar(device_ip) >= 3)
-  # TODO minimal IP validation device_IP shall contain at least a  \. or at least two \:
-  # TODO use a proper IP address validation function
+  stopifnot("device_ip shall be an atomic character string" = is.atomic(device_ip))
+  stopifnot("device_ip shall be of a minimal character length" = nchar(device_ip) >= 3)
+
+  # Regular expression to match a valid IPv4 address
+  ipv4_regex <- "^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+  # Regular expression to match a valid IPv6 address
+  ipv6_regex <- "^[0-9a-fA-F]{1,4}(:[0-9a-fA-F]{1,4}){7}$"
+  # Regular expression to match a .local domain resolution
+  local_regex <- "\\.local$"
+
+  stopifnot("device_ip shall be a valid .local, IPv4 or IPv6 address" = grepl(ipv4_regex, device_ip) || grepl(ipv6_regex, device_ip) || grepl(local_regex, device_ip))
+}
+
+.req_perform_parallel <- function(requests, ...) {
+  httr2::req_perform_parallel(requests, ...)
+
 }

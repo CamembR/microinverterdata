@@ -19,7 +19,6 @@ library(tsibble, warn.conflicts = FALSE)
 library(pins)
 library(dplyr, warn.conflicts = FALSE)
 library(imputeTS, warn.conflicts = FALSE)
-library(ggplot2)
 ```
 
 # Data Visualization
