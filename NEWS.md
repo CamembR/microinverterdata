@@ -1,4 +1,4 @@
-# microinverterdata (development version)
+# microinverterdata 0.3.1
 
 # microinverterdata 0.3.0
 
