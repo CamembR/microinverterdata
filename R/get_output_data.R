@@ -40,7 +40,7 @@ get_output_data_APSystems <- function(device_ip) {
     rename(output_power = "p", today_energy = "e", lifetime_energy = "te")
   mutate(out_tbl,
          across(ends_with("_power"), \(x) set_units(x, "W")),
-         across(ends_with("_energy"), \(x) set_units(x, "kW/h"))
+         across(ends_with("_energy"), \(x) set_units(x, "kW.h"))
   )
 
 
@@ -98,7 +98,7 @@ get_output_data_Fronius <- function(device_ip) {
   out_tbl <- mutate(out_tbl,
                     last_report = as.POSIXct(.data$last_report),
                     across(ends_with("_power"), \(x) set_units(x, "W")),
-                    across(ends_with("_energy"), \(x) set_units(x, "kW/h"))
+                    across(ends_with("_energy"), \(x) set_units(x, "kW.h"))
   )
 
   return(out_tbl)

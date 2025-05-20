@@ -1,5 +1,7 @@
 # microinverterdata 0.3.1
 
+* fix energy units to be kW.h (thanks to @tvroylandt)
+
 # microinverterdata 0.3.0
 
 * now perform requests to multiple devices in parallel (AP System & Fronius). #14

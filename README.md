@@ -43,7 +43,7 @@ library(microinverterdata)
 get_output_data(device_ip = "192.168.0.75")
 #> # A tibble: 2 × 5
 #>   device_id    inverter   output_power today_energy lifetime_energy
-#>   <chr>        <chr>               [W]         [kW/h]          [kW/h]
+#>   <chr>        <chr>               [W]         [kW.h]          [kW.h]
 #> 1 E07000017176 inverter_1          127          0.336            251.
 #> 2 E07000017176 inverter_2          128          0.342            265.
 ```
@@ -59,7 +59,7 @@ command would run on all the inverters
 get_output_data(device_ip = c("192.168.0.75", "192.168.0.186"))
 #> # A tibble: 4 × 5
 #>   device_id    inverter   output_power today_energy lifetime_energy
-#>   <chr>        <chr>               [W]         [kW/h]          [kW/h]
+#>   <chr>        <chr>               [W]         [kW.h]          [kW.h]
 #> 1 E07000017176 inverter_1          126          0.336           251. 
 #> 2 E07000017176 inverter_2          128          0.342           265. 
 #> 3 E07000021746 inverter_1          125          0.334            44.0
