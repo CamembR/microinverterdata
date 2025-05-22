@@ -56,6 +56,7 @@
 </h1></div>
 <!-- badges: start -->
 
+<!-- badges: end -->
 <p>The goal of microinverterdata is to provide access to your local micro-inverter data.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -63,7 +64,7 @@
 <p>You can install the released version from CRAN with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"microinverterdata"</span><span class="op">)</span></span></code></pre></div>
-<p>You can install the development version of {microinverterdata} from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>Or you can install the development version of {microinverterdata} from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"CamembR/microinverterdata"</span><span class="op">)</span></span></code></pre></div>
@@ -78,26 +79,26 @@
 <span><span class="co">## single micro-inverter device data</span></span>
 <span><span class="fu"><a href="reference/get_output_data.html">get_output_data</a></span><span class="op">(</span>device_ip <span class="op">=</span> <span class="st">"192.168.0.75"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 5</span></span>
-<span><span class="co">#&gt;   device_id    inverter   output_power today_energy lifetime_energy</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;               [W]         [kW.h]          [kW.h]</span></span>
-<span><span class="co">#&gt; 1 E07000017176 inverter_1          127          0.336            251.</span></span>
-<span><span class="co">#&gt; 2 E07000017176 inverter_2          128          0.342            265.</span></span></code></pre></div>
+<span><span class="co">#&gt;   device_id    inverter output_power today_energy lifetime_energy</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;             [W]       [kW.h]          [kW.h]</span></span>
+<span><span class="co">#&gt; 1 E07000011776 1                  66        0.138            478.</span></span>
+<span><span class="co">#&gt; 2 E07000011776 2                  69        0.145            489.</span></span></code></pre></div>
 <p>The single device here includes 2 separated inverters. We get one row of data per inverter, i.e. per solar panel.</p>
-<p>You can also use a vector of IP addresses for <code>device_ip</code>. Thus the command would run on all the inverters</p>
+<p>You can also use a vector of IP addresses for <code>device_ip</code>. Thus the command would run on all the inverters in parallel.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## multiple inverters data</span></span>
 <span><span class="fu"><a href="reference/get_output_data.html">get_output_data</a></span><span class="op">(</span>device_ip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"192.168.0.75"</span>, <span class="st">"192.168.0.186"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 4 × 5</span></span>
-<span><span class="co">#&gt;   device_id    inverter   output_power today_energy lifetime_energy</span></span>
-<span><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;               [W]         [kW.h]          [kW.h]</span></span>
-<span><span class="co">#&gt; 1 E07000017176 inverter_1          126          0.336           251. </span></span>
-<span><span class="co">#&gt; 2 E07000017176 inverter_2          128          0.342           265. </span></span>
-<span><span class="co">#&gt; 3 E07000021746 inverter_1          125          0.334            44.0</span></span>
-<span><span class="co">#&gt; 4 E07000021746 inverter_2          123          0.329            59.0</span></span></code></pre></div>
+<span><span class="co">#&gt;   device_id    inverter output_power today_energy lifetime_energy</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;             [W]       [kW.h]          [kW.h]</span></span>
+<span><span class="co">#&gt; 1 E07000011776 1                  66        0.138            478.</span></span>
+<span><span class="co">#&gt; 2 E07000011776 2                  69        0.145            489.</span></span>
+<span><span class="co">#&gt; 3 E07000011433 1                  68        0.145            265.</span></span>
+<span><span class="co">#&gt; 4 E07000011433 2                  68        0.144            276.</span></span></code></pre></div>
 <p>The packages also gives access to inverter information through <code><a href="reference/get_device_info.html">get_device_info()</a></code> and inverter internal alarms through <code><a href="reference/get_alarm.html">get_alarm()</a></code>.</p>
 </div>
 <div class="section level2">
-<h2 id="inverter-support-and-configuration">Inverter support and configuration<a class="anchor" aria-label="anchor" href="#inverter-support-and-configuration"></a>
+<h2 id="microinverter-support-and-configuration">Microinverter support and configuration<a class="anchor" aria-label="anchor" href="#microinverter-support-and-configuration"></a>
 </h2>
 <p>The package allow querying values on diverse device models through the <code>model = "..."</code> parameter.</p>
 <p>{microinverterdata} may require a minimal software version and configuration for the supported inverters :</p>
