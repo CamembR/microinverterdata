@@ -1,3 +1,5 @@
+# microinverterdata 0.4.0
+
 # microinverterdata 0.3.1
 
 * fix energy units to be kW.h (thanks to @tvroylandt)
