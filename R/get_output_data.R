@@ -38,11 +38,11 @@ get_output_data_APSystems <- function(device_ip) {
     separate_wider_regex("name", patterns = c("metric" = "\\D+","inverter" = "\\d+")) |>
     pivot_wider(names_from = "metric", values_from = "value")|>
     rename(output_power = "p", today_energy = "e", lifetime_energy = "te")
-  mutate(out_tbl,
+
+  out_tbl <- mutate(out_tbl,
          across(ends_with("_power"), \(x) set_units(x, "W")),
          across(ends_with("_energy"), \(x) set_units(x, "kW.h"))
   )
-
 
   return(out_tbl)
 }
@@ -61,7 +61,8 @@ get_output_data_Enphase_Envoy <- function(device_ip) {
   out_tbl <- mutate(out_tbl,
                     last_report = as.POSIXct(.data$last_report),
                     # TODO BUG may fail if not parsed as number
-                    across(ends_with("_power"), \(x) set_units(x, "W"))
+                    across(ends_with("_power"), \(x) set_units(x, "W")),
+                    across(ends_with("_energy"), \(x) set_units(x, "W.h"))
   )
 
   return(out_tbl)
@@ -98,7 +99,7 @@ get_output_data_Fronius <- function(device_ip) {
   out_tbl <- mutate(out_tbl,
                     last_report = as.POSIXct(.data$last_report),
                     across(ends_with("_power"), \(x) set_units(x, "W")),
-                    across(ends_with("_energy"), \(x) set_units(x, "kW.h"))
+                    across(ends_with("_energy"), \(x) set_units(x, "W.h"))
   )
 
   return(out_tbl)

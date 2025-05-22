@@ -17,6 +17,8 @@ with_mocked_bindings(
         c("device_id", "inverter", "output_power", "today_energy", "lifetime_energy")
       )
       expect_equal(nrow(apsystem_data), 2L)
+      expect_identical(apsystem_data$output_power, set_units(c(242, 237), "W"))
+      expect_identical(apsystem_data$today_energy, set_units(c(1.38517, 1.36542), "kW.h"))
     })
 
     test_that("get_output_data() works with multiple devices from APSystems", {
@@ -31,8 +33,11 @@ with_mocked_bindings(
         c("device_id", "inverter", "output_power", "today_energy", "lifetime_energy")
       )
       expect_equal(nrow(apsystem_data), 4L)
+      expect_identical(apsystem_data$output_power, set_units(c(242, 237, 42, 37), "W"))
+      expect_identical(apsystem_data$today_energy, set_units(c(1.38517, 1.36542, 1.8517, 1.542), "kW.h"))
     })
   }),
+  # mocking the check_device_ip to be true here on specific names
   check_device_ip = function(device_ip) {
   if (rlang::enexpr(device_ip) %in% c("apsystems_host", "apsystems_multi")) {
     return
@@ -51,6 +56,9 @@ with_mock_dir("enphase", {
       c("device_id", "last_report", "name", "phase", "power", "voltage", "current")
     )
     expect_equal(nrow(enphase_data), 9L)
+    expect_identical(enphase_data$power[1], set_units(12.5, "W"))
+    expect_identical(enphase_data$voltage[1], set_units(230, "V"))
+    expect_identical(enphase_data$current[9], set_units(2.7, "A"))
   })
 
   test_that("get_output_data() works with one Enphase-Envoy device", {
@@ -64,6 +72,8 @@ with_mock_dir("enphase", {
       c("device_id", "last_report", "type",  "output_power", "lifetime_energy", "today_energy")
     )
     expect_equal(nrow(enphase_data), 2L)
+    expect_identical(enphase_data$output_power, set_units(c(254.555, 254.555), "W"))
+    expect_identical(enphase_data$today_energy, set_units(c(11887.499, 11887.499), "W.h"))
   })
 })
 
@@ -80,6 +90,10 @@ with_mock_dir("f", {
       c("device_id", "last_report", "today_energy", "output_power", "lifetime_energy", "year_energy")
     )
     expect_equal(nrow(fronius_data), 1L)
+    # TODO fail as mocked json do not return numeric values
+    expect_identical(fronius_data$output_power, set_units(308, "W"))
+    expect_identical(fronius_data$lifetime_energy, set_units(5305086, "W.h"))
+    expect_identical(fronius_data$today_energy, set_units(414, "W.h"))
   })
 
   test_that("get_output_data() works with multiple devices from Fronius", {
@@ -94,6 +108,9 @@ with_mock_dir("f", {
       c("device_id", "last_report", "today_energy", "output_power", "lifetime_energy", "year_energy")
     )
     expect_equal(nrow(fronius_data), 2L)
+    expect_identical(fronius_data$output_power, set_units(c(308, 348), "W"))
+    expect_identical(fronius_data$lifetime_energy, set_units(c(5305086, 55086), "W.h"))
+    expect_identical(fronius_data$today_energy, set_units(c(414, 214), "W.h"))
   })
 })
 
