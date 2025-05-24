@@ -17,8 +17,8 @@ with_mocked_bindings(
         c("device_id", "inverter", "output_power", "today_energy", "lifetime_energy")
       )
       expect_equal(nrow(apsystem_data), 2L)
-      expect_identical(apsystem_data$output_power, set_units(c(242, 237), "W"))
-      expect_identical(apsystem_data$today_energy, set_units(c(1.38517, 1.36542), "kW.h"))
+      expect_identical(apsystem_data$output_power, set_units(c(42, 37), "W"))
+      expect_identical(apsystem_data$today_energy, set_units(c(1.8517, 1.542), "kW.h"))
     })
 
     test_that("get_output_data() works with multiple devices from APSystems", {
@@ -33,8 +33,8 @@ with_mocked_bindings(
         c("device_id", "inverter", "output_power", "today_energy", "lifetime_energy")
       )
       expect_equal(nrow(apsystem_data), 4L)
-      expect_identical(apsystem_data$output_power, set_units(c(242, 237, 42, 37), "W"))
-      expect_identical(apsystem_data$today_energy, set_units(c(1.38517, 1.36542, 1.8517, 1.542), "kW.h"))
+      expect_identical(apsystem_data$output_power, set_units(c(42, 37, 242, 237), "W"))
+      expect_identical(apsystem_data$today_energy, set_units(c(1.8517, 1.542, 1.38517, 1.36542), "kW.h"))
     })
   }),
   # mocking the check_device_ip to be true here on specific names

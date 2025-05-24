@@ -76,3 +76,20 @@ The package allow querying values on diverse device models through the `model = 
 | Fronius | multiple | ≥ 1.7.2 | off-cloud (Need testers)          |
 | Enphase | Envoy-S  | D5.x.x  | off-cloud (Need testers)          |
 | Enphase | Energy   | < 7.x   | off-cloud (Need testers)          |
+
+## Contributing
+
+No matter your current skills, it’s possible to contribute to microinverterdata development. We welcome all kinds of contributions, from correcting typos via bug fixes to feature additions.
+
+### Fixing typos
+
+To fix typos, spelling mistakes, or grammatical errors, you need to make changes in the source .R file in question, not in the generated .Rd file. 
+
+### Filing bugs
+
+If you find a bug in microinverterdata, please open an New issue [here](https://github.com/CamembR/microinverterdata/issues). Please provide detailed information on your microinverter (model, version, ) . It would be great to also provide a link to the documentation of its API.
+
+### Feature requests / New model support
+
+Feel free to open a New issue [here](https://github.com/CamembR/microinverterdata/issues), and add the feature-request tag. Also try searching if there’s already an open issue for your feature-request – in this case it’s better to comment or upvote it instead of opening a new one.
+
