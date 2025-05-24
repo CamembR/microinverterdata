@@ -82,8 +82,8 @@
 <span><span class="co">#&gt; # A tibble: 2 × 5</span></span>
 <span><span class="co">#&gt;   device_id    inverter output_power today_energy lifetime_energy</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;             [W]       [kW.h]          [kW.h]</span></span>
-<span><span class="co">#&gt; 1 E07000011776 1                  66        0.138            478.</span></span>
-<span><span class="co">#&gt; 2 E07000011776 2                  69        0.145            489.</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 E07000011776 1                 311        0.644            481.</span></span>
+<span><span class="co">#&gt; 2 E07000011776 2                 323        0.697            492.</span></span></code></pre></div>
 <p>The single device here includes 2 separated inverters. We get one row of data per inverter, i.e. per solar panel.</p>
 <p>You can also use a vector of IP addresses for <code>device_ip</code>. Thus the command would run on all the inverters in parallel.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -92,10 +92,10 @@
 <span><span class="co">#&gt; # A tibble: 4 × 5</span></span>
 <span><span class="co">#&gt;   device_id    inverter output_power today_energy lifetime_energy</span></span>
 <span><span class="co">#&gt;   &lt;chr&gt;        &lt;chr&gt;             [W]       [kW.h]          [kW.h]</span></span>
-<span><span class="co">#&gt; 1 E07000011776 1                  66        0.138            478.</span></span>
-<span><span class="co">#&gt; 2 E07000011776 2                  69        0.145            489.</span></span>
-<span><span class="co">#&gt; 3 E07000011433 1                  68        0.145            265.</span></span>
-<span><span class="co">#&gt; 4 E07000011433 2                  68        0.144            276.</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 E07000011776 1                 311        0.644            481.</span></span>
+<span><span class="co">#&gt; 2 E07000011776 2                 323        0.697            492.</span></span>
+<span><span class="co">#&gt; 3 E07000011433 1                 319        0.690            268.</span></span>
+<span><span class="co">#&gt; 4 E07000011433 2                 312        0.679            279.</span></span></code></pre></div>
 <p>The packages also gives access to inverter information through <code><a href="reference/get_device_info.html">get_device_info()</a></code> and inverter internal alarms through <code><a href="reference/get_alarm.html">get_alarm()</a></code>.</p>
 </div>
 <div class="section level2">
@@ -144,6 +144,26 @@
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section level2">
+<h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
+</h2>
+<p>No matter your current skills, it’s possible to contribute to microinverterdata development. We welcome all kinds of contributions, from correcting typos via bug fixes to feature additions.</p>
+<div class="section level3">
+<h3 id="fixing-typos">Fixing typos<a class="anchor" aria-label="anchor" href="#fixing-typos"></a>
+</h3>
+<p>To fix typos, spelling mistakes, or grammatical errors, you need to make changes in the source .R file in question, not in the generated .Rd file.</p>
+</div>
+<div class="section level3">
+<h3 id="filing-bugs">Filing bugs<a class="anchor" aria-label="anchor" href="#filing-bugs"></a>
+</h3>
+<p>If you find a bug in microinverterdata, please open an New issue <a href="https://github.com/CamembR/microinverterdata/issues" class="external-link">here</a>. Please provide detailed information on your microinverter (model, version, ) . It would be great to also provide a link to the documentation of its API.</p>
+</div>
+<div class="section level3">
+<h3 id="feature-requests--new-model-support">Feature requests / New model support<a class="anchor" aria-label="anchor" href="#feature-requests--new-model-support"></a>
+</h3>
+<p>Feel free to open a New issue <a href="https://github.com/CamembR/microinverterdata/issues" class="external-link">here</a>, and add the feature-request tag. Also try searching if there’s already an open issue for your feature-request – in this case it’s better to comment or upvote it instead of opening a new one.</p>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
