@@ -1,6 +1,6 @@
-# microinverterdata 0.4.0
+# microinverterdata (development version)
 
-# microinverterdata 0.3.1
+# microinverterdata 0.4.0
 
 * fix energy units to be kW.h (thanks to @tvroylandt)
 * fix missing units for AP devices
