@@ -1,0 +1,29 @@
+# APSystems_devices
+
+## APsystems device coverage
+
+The following APSystems devices are covered :
+
+| Inverter Model | Firmware version | Configuration         |
+|----------------|------------------|-----------------------|
+| EZ1            | ≥ 1.7.0          | Continuous local mode |
+
+## Continuous local mode for your micro-inverter
+
+### Design
+
+Permanent local mode is a setup configuration of your micro-inverter
+that allow REST API calls from the local network to the inverter.
+
+Here is the high level network setup :![Network
+Setup](images/network_setup.png)
+
+### Inverter setup
+
+Here is a summary of the expected configuration of each and every
+inverter to reach. Please refer to official manufacturer user manual for
+the detailed setup.
+
+| Direct-connect device page                                                                                                               | Direct-connect device settings                                                                                                        | Setting local mode for Continuous local mode                                                                                                                                            |
+|------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![Screenshot of the AP EasyPower application for the Device page showing live microinverter data](images/Direct_connect_device_page.png) | ![Screenshot of the AP EasyPower application for the Device Settings page showing direct connect](images/Direct_connect_settings.png) | ![Screenshot of the AP EasyPower application for the Device local-mode page showing correct options with enable-local mode and enable level continuous](images/Settings_local_mode.png) |

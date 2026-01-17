@@ -1,0 +1,83 @@
+# Local Data Collection
+
+``` r
+library(microinverterdata)
+```
+
+## Data Collection
+
+For inverters that do not collect historical data, you may want to do
+this collection with R.
+
+Here are some ideas to achieve it.
+
+### Use `pins` storage
+
+- Initialize the board dataset maned “inverter_data” (only once) We can
+  choose the most simpler board to be the local board
+
+``` r
+library(pins)
+board <- board_local()
+if (!"inverter_data" %in% pin_list(board)) {
+  initial_data <- tibble::tibble(
+    date = Sys.time(), get_output_data(c("192.168.0.175"))
+    )
+  board |> pin_write(initial_data, name = "inverter_data", versioned = TRUE)
+}
+```
+
+- Read the {pins} local board content for dataset “inverter_data”
+
+``` r
+history <- board |> pin_read("inverter_data")
+```
+
+- Read new data from the inverter and append it to the dataset :
+
+``` r
+new_data <- tibble::tibble(
+  date = Sys.time(), get_output_data(c("192.168.0.175"))
+  )
+board |> pin_write(rbind(history, new_data), name = "inverter_data", versioned = TRUE)
+```
+
+- look at recorded versions
+
+``` r
+board |> pin_versions("inverter_data")
+```
+
+### All-in-one in a script
+
+Now that we know the dynamic behavior, we can move that to a R script
+and run it on a regular basis with system tools
+
+and you can use and edit the following file as a baseline
+
+``` r
+system.file("inverter_data.R", package = "microinverterdata")
+```
+
+and setup (or remove) the environment variables required for the script
+to run, and finally save the modified script in an accessible folder.
+
+#### MacOS / Linux platform
+
+The system tool `crontab` is the tool of choice for job scheduling on
+linux :
+
+``` bash
+crontab -l
+```
+
+Last step here is to configure the crontab to run it every 30 min like
+in the following `crontab` entry
+
+    # m h dom mon dow command
+    0,30 * * * * R CMD BATCH /path/of/modified/inverter_data.R
+
+#### MS Windows platform
+
+Depending of your version, last step here is to configure the task
+scheduler or the powershell `PSScheduledJob` to run it.

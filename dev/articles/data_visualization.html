@@ -87,7 +87,7 @@ recall the collected data and bring them to the light.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">inverter_df</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 6</span></span>
 <span><span class="co">#&gt;   date                device_id    inverter output_power today_energy lifetime_energy</span></span>
-<span><span class="co">#&gt;   &lt;dttm&gt;              &lt;chr&gt;        &lt;chr&gt;             [W]       [kW/h]          [kW/h]</span></span>
+<span><span class="co">#&gt;   &lt;dttm&gt;              &lt;chr&gt;        &lt;chr&gt;             [W]       [kW.h]          [kW.h]</span></span>
 <span><span class="co">#&gt; 1 2024-09-22 19:35:41 E07000011776 1                   0        0.646            252.</span></span>
 <span><span class="co">#&gt; 2 2024-09-22 19:35:41 E07000011776 2                   0        0.654            266.</span></span>
 <span><span class="co">#&gt; 3 2024-09-22 19:43:29 E07000011776 1                   0        0.647            252.</span></span>
@@ -181,13 +181,13 @@ the time-series :</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://SteffenMoritz.github.io/imputeTS/reference/ggplot_na_imputations.html" class="external-link">ggplot_na_imputations</a></span><span class="op">(</span>x_with_na <span class="op">=</span> <span class="va">inverter_ts</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">device_id</span> <span class="op">==</span> <span class="st">"E07000011433"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">today_energy</span><span class="op">)</span>,</span>
 <span>                      x_with_imputations <span class="op">=</span> <span class="va">full_inverter</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">device_id</span> <span class="op">==</span> <span class="st">"E07000011433"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">today_energy</span><span class="op">)</span>,</span>
-<span>                      ylab <span class="op">=</span> <span class="st">"Daily energy [kWh]"</span>,</span>
+<span>                      ylab <span class="op">=</span> <span class="st">"Daily energy [kW.h]"</span>,</span>
 <span>                      title <span class="op">=</span> <span class="st">"Imputed Values, first device"</span>,</span>
 <span>                      size_imputations <span class="op">=</span> <span class="fl">0.2</span>,</span>
 <span>                      size_points <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://SteffenMoritz.github.io/imputeTS/reference/ggplot_na_imputations.html" class="external-link">ggplot_na_imputations</a></span><span class="op">(</span>x_with_na <span class="op">=</span> <span class="va">inverter_ts</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">device_id</span> <span class="op">==</span> <span class="st">"E07000011776"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">today_energy</span><span class="op">)</span>,</span>
 <span>                      x_with_imputations <span class="op">=</span> <span class="va">full_inverter</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">device_id</span> <span class="op">==</span> <span class="st">"E07000011776"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">today_energy</span><span class="op">)</span>,</span>
-<span>                      ylab <span class="op">=</span> <span class="st">"Daily energy [kWh]"</span>,</span>
+<span>                      ylab <span class="op">=</span> <span class="st">"Daily energy [kW.h]"</span>,</span>
 <span>                      title <span class="op">=</span> <span class="st">"Imputed Values, second device"</span>,</span>
 <span>                      size_imputations <span class="op">=</span> <span class="fl">0.2</span>,</span>
 <span>                      size_points <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span></span></code></pre></div>
@@ -197,7 +197,7 @@ the time-series :</p>
 <div class="section level3">
 <h3 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
 </h3>
-<p>Much better imputation can be done of course form this very
+<p>Much better imputation can be done of course from this very
 challenging dataset. As everybody knows, we have the intuition of a
 daily seasonality being modulated by the local solar radiation. Up to
 you now to dig into it !</p>
@@ -214,7 +214,7 @@ you now to dig into it !</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
