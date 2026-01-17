@@ -2,7 +2,7 @@
 
 # microinverterdata 0.4.0
 
-* fix energy units to be kW.h (thanks to @tvroylandt)
+* fix energy units to be kW.h (thanks to @RemiMahmoud)
 * fix missing units for AP devices
 * fix correct power unit for Enphase and Fronius
 * improve error message expressivness.

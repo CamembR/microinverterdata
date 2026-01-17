@@ -36,7 +36,7 @@ inverter_df <- board |>
 head(inverter_df)
 #> # A tibble: 6 × 6
 #>   date                device_id    inverter output_power today_energy lifetime_energy
-#>   <dttm>              <chr>        <chr>             [W]       [kW/h]          [kW/h]
+#>   <dttm>              <chr>        <chr>             [W]       [kW.h]          [kW.h]
 #> 1 2024-09-22 19:35:41 E07000011776 1                   0        0.646            252.
 #> 2 2024-09-22 19:35:41 E07000011776 2                   0        0.654            266.
 #> 3 2024-09-22 19:43:29 E07000011776 1                   0        0.647            252.
@@ -129,13 +129,13 @@ ggplot_na_imputations(x_with_na = inverter_ts |> filter(device_id == "E070000117
 ```{r, eval=FALSE}
 ggplot_na_imputations(x_with_na = inverter_ts |> filter(device_id == "E07000011433") |> pull(today_energy),
                       x_with_imputations = full_inverter |> filter(device_id == "E07000011433") |> pull(today_energy),
-                      ylab = "Daily energy [kWh]",
+                      ylab = "Daily energy [kW.h]",
                       title = "Imputed Values, first device",
                       size_imputations = 0.2,
                       size_points = 0.6)
 ggplot_na_imputations(x_with_na = inverter_ts |> filter(device_id == "E07000011776") |> pull(today_energy),
                       x_with_imputations = full_inverter |> filter(device_id == "E07000011776") |> pull(today_energy),
-                      ylab = "Daily energy [kWh]",
+                      ylab = "Daily energy [kW.h]",
                       title = "Imputed Values, second device",
                       size_imputations = 0.2,
                       size_points = 0.6)
@@ -147,4 +147,4 @@ ggplot_na_imputations(x_with_na = inverter_ts |> filter(device_id == "E070000117
 
 ## Conclusion
 
-Much better imputation can be done of course form this very challenging dataset. As everybody knows, we have the intuition of a daily seasonality being modulated by the local solar radiation. Up to you now to dig into it !
+Much better imputation can be done of course from this very challenging dataset. As everybody knows, we have the intuition of a daily seasonality being modulated by the local solar radiation. Up to you now to dig into it !
